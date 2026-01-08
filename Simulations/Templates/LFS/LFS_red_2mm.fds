@@ -1,0 +1,2104 @@
+&HEAD CHID='LFS_red_2mm', TITLE='Lateral Flame Spread | Geometry with imprinted heat flux (red) - gridsize 2mm - Parameter from Cone_C5_PMMACN_h_rep99' /
+
+&TIME T_END=3600, WALL_INCREMENT=1 /
+
+&MISC SIMULATION_MODE='LES', RESTART=.TRUE., BNDF_DEFAULT=.TRUE., SOLID_PHASE_ONLY=.FALSE. /
+&DUMP NFRAMES=3600, DT_BNDF=10, DT_SLCF=10, DT_DEVC=1, DT_RESTART=300 /
+&RADI NUMBER_RADIATION_ANGLES=100 /
+
+***** Meshes ******************
+
+&MESH IJK = 20,40,90, XB = -0.04,0.00,-0.07,0.01,-0.02,0.16, MULT_ID = 'MESH' /
+&MULT ID = 'MESH', DX = 0.04, DY = 0.0, DZ = 0.0, I_UPPER = 23, J_UPPER = 0, K_UPPER = 0  /
+
+***** Open Vents ******************
+
+&VENT MB = 'XMIN',SURF_ID = 'OPEN'/
+&VENT MB = 'XMAX',SURF_ID = 'OPEN'/
+&VENT MB = 'YMIN',SURF_ID = 'OPEN'/
+&VENT MB = 'YMAX',SURF_ID = 'OPEN'/
+&VENT MB = 'ZMIN',SURF_ID = 'OPEN'/
+&VENT MB = 'ZMAX',SURF_ID = 'OPEN'/
+
+***** REAC Parameters *************
+
+&SPEC ID='MMA', FORMULA='C5H8O2', SPECIFIC_HEAT=1.1, RADCAL_ID='MMA', SIGMALJ=4.701, EPSILONKLJ=205.78 /
+
+&REAC FUEL='MMA', SOOT_YIELD=0.022, CO_YIELD=0.01, RADIATIVE_FRACTION=0.31 /  Tewarson, 4th SFPE Handbook, Table 3-4.16
+
+##################
+#### Outputs ####
+##################
+
+***** Boundaries *******************
+
+&BNDF QUANTITY='RADIATIVE HEAT FLUX', CELL_CENTERED=.TRUE./
+&BNDF QUANTITY='INCIDENT HEAT FLUX', CELL_CENTERED=.TRUE./
+&BNDF QUANTITY='NET HEAT FLUX', CELL_CENTERED=.TRUE./
+&BNDF QUANTITY='GAUGE HEAT FLUX', CELL_CENTERED=.TRUE./
+&BNDF QUANTITY='CONVECTIVE HEAT FLUX', CELL_CENTERED=.TRUE./
+&BNDF QUANTITY='HEAT TRANSFER COEFFICIENT', CELL_CENTERED=.TRUE./
+&BNDF QUANTITY='WALL TEMPERATURE', CELL_CENTERED=.TRUE./
+&BNDF QUANTITY='HRRPUA', CELL_CENTERED=.TRUE./
+&BNDF QUANTITY='BURNING RATE', CELL_CENTERED=.TRUE./
+&BNDF QUANTITY='WALL THICKNESS', CELL_CENTERED=.TRUE./
+&BNDF QUANTITY='REFERENCE_HEAT_FLUX', CELL_CENTERED=.TRUE./
+
+***** Slices *******************
+
+&SLCF QUANTITY='HRRPUV', CELL_CENTERED=.TRUE., PBY=-0.001 /
+&SLCF QUANTITY='TEMPERATURE', CELL_CENTERED=.TRUE., PBY=-0.001 /
+
+***** Devices *******************
+
+&DEVC XBP = 0.005, 0.765, 0.0, 0.0, 0.001, 0.001, IOR=-2, QUANTITY='HRRPUA', ID='HRRPUA_bot', POINTS=77, TIME_HISTORY=T /
+&DEVC XBP = 0.005, 0.765, 0.0, 0.0, 0.033, 0.033, IOR=-2, QUANTITY='HRRPUA', ID='HRRPUA_33', POINTS=77, TIME_HISTORY=T /
+&DEVC XBP = 0.005, 0.765, 0.0, 0.0, 0.065, 0.065, IOR=-2, QUANTITY='HRRPUA', ID='HRRPUA_mid', POINTS=77, TIME_HISTORY=T /
+&DEVC XBP = 0.005, 0.765, 0.0, 0.0, 0.099, 0.099, IOR=-2, QUANTITY='HRRPUA', ID='HRRPUA_99', POINTS=77, TIME_HISTORY=T /
+&DEVC XBP = 0.005, 0.765, 0.0, 0.0, 0.129, 0.129, IOR=-2, QUANTITY='HRRPUA', ID='HRRPUA_top', POINTS=77, TIME_HISTORY=T /
+
+&DEVC XBP = 0.005, 0.765, 0.0, 0.0, 0.001, 0.001, IOR=-2, QUANTITY='GAUGE HEAT FLUX', ID='GHF_bot', POINTS=77, TIME_HISTORY=T /
+&DEVC XBP = 0.005, 0.765, 0.0, 0.0, 0.065, 0.065, IOR=-2, QUANTITY='GAUGE HEAT FLUX', ID='GHF_mid', POINTS=77, TIME_HISTORY=T /
+&DEVC XBP = 0.005, 0.765, 0.0, 0.0, 0.129, 0.129, IOR=-2, QUANTITY='GAUGE HEAT FLUX', ID='GHF_top', POINTS=77, TIME_HISTORY=T /
+
+&DEVC XBP = 0.005, 0.765, 0.0, 0.0, 0.001, 0.001, IOR=-2, QUANTITY='WALL TEMPERATURE', ID='WT_bot', POINTS=77, TIME_HISTORY=T /
+&DEVC XBP = 0.005, 0.765, 0.0, 0.0, 0.065, 0.065, IOR=-2, QUANTITY='WALL TEMPERATURE', ID='WT_mid', POINTS=77, TIME_HISTORY=T /
+&DEVC XBP = 0.005, 0.765, 0.0, 0.0, 0.129, 0.129, IOR=-2, QUANTITY='WALL TEMPERATURE', ID='WT_top', POINTS=77, TIME_HISTORY=T /
+
+&DEVC XBP = 0.005, 0.765, 0.0, 0.0, 0.001, 0.001, IOR=-2, QUANTITY='INSIDE WALL TEMPERATURE', ID='IWT_bot', DEPTH=0.006, POINTS=77, TIME_HISTORY=T /
+&DEVC XBP = 0.005, 0.765, 0.0, 0.0, 0.065, 0.065, IOR=-2, QUANTITY='INSIDE WALL TEMPERATURE', ID='IWT_mid', DEPTH=0.006, POINTS=77, TIME_HISTORY=T /
+&DEVC XBP = 0.005, 0.765, 0.0, 0.0, 0.129, 0.129, IOR=-2, QUANTITY='INSIDE WALL TEMPERATURE', ID='IWT_top', DEPTH=0.006, POINTS=77, TIME_HISTORY=T /
+
+##################
+#### Geometry ####
+##################
+
+***** Materials *******************
+
+&MATL ID = 'PMMA_CN_6mm', DENSITY = 1139.2407407407409, CONDUCTIVITY_RAMP = 'k_PMMA',
+      SPECIFIC_HEAT_RAMP = 'cp_PMMA', EMISSIVITY = 0.96, ABSORPTION_COEFFICIENT = 2870 /
+
+&RAMP ID='k_PMMA', T= 20., F=0.160 /
+&RAMP ID='k_PMMA', T=122., F=0.160 /
+&RAMP ID='k_PMMA', T=500., F=0.015 /
+
+&RAMP ID='cp_PMMA', T= 20., F=1.05 /
+&RAMP ID='cp_PMMA', T=122., F=1.90 /
+&RAMP ID='cp_PMMA', T=500., F=3.22 /
+
+&MATL ID            = 'PROMATECT'
+      EMISSIVITY    = 0.9
+      DENSITY       = 450.
+      SPECIFIC_HEAT = 0.95
+      CONDUCTIVITY_RAMP = 'k_PROMAT LS' /
+
+&RAMP ID='k_PROMAT LS', T= 20., F=0.08 /
+&RAMP ID='k_PROMAT LS', T=200., F=0.10 /
+&RAMP ID='k_PROMAT LS', T=400., F=0.11 /
+
+&MATL ID            = 'STEEL'
+      EMISSIVITY    = 0.9
+      DENSITY       = 7800.
+      SPECIFIC_HEAT = 0.465        
+      CONDUCTIVITY  = 43. /
+
+&SURF ID            = 'steelframe'
+      MATL_ID       = 'STEEL'
+      THICKNESS     = 0.003
+      RGB           = 118,118,117 /
+
+***** Sample with imprinted heat flux *******************
+# with SPyro Parameters RAMP_Q and HEAT_OF_VAPORIZATION
+
+&SURF ID                      = 'PMMA_back',
+      COLOR                   = 'BEIGE',
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.03, 0.006,
+      MATL_ID(1,1:1)          = 'PROMATECT',
+      MATL_ID(2,1:1)          = 'PMMA_CN_6mm' /
+
+&SURF ID                      = 'PMMA_CN_front_5.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 239.70382500000002,248.66529,33.48813,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 49.71480577721426,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.0, 0.01, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_5.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_15.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 241.38351,243.57345,38.333639999999995,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 50.06178749979817,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.01, 0.02, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_15.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_25.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 243.343185,238.40153999999998,38.994855,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 50.304398634241785,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.02, 0.03, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_25.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_35.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 245.825355,231.52725,38.08935,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 50.44960220572802,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.03, 0.04, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_35.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_45.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 247.485915,226.41348,37.209345,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 50.50436123943983,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.04, 0.05, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_45.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_55.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 248.947575,221.34408,36.554505,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 50.475638760560194,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.05, 0.06, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_55.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_65.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 250.576515,214.66206,36.287265000000005,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 50.370397794271994,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.06, 0.07, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_65.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_75.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 251.55979499999998,209.712255,36.607034999999996,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 50.19560136575823,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.07, 0.08, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_75.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_85.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 252.344685,204.817275,37.364895,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 49.958212500201824,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.08, 0.09, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_85.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_95.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 253.088775,198.381585,38.978024999999995,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 49.66519422278575,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.09, 0.1, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_95.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_105.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 253.432005,193.62252,40.56846,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 49.32323918054507,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.1, 0.11, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_105.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_115.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 253.613055,187.371705,43.079190000000004,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 48.932821323113885,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.11, 0.12, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_115.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_125.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 253.55262,182.753655,45.18804,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 48.48819590272533,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.12, 0.13, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_125.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_135.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 253.33128,178.19655,47.440455,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 47.983347793464674,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.13, 0.14, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_135.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_145.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 252.798075,172.215525,50.605515,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 47.41226186941717,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.14, 0.15, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_145.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_155.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 252.22764,167.80096500000002,53.0655,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 46.76920451725957,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.15, 0.16, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_155.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_165.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 251.517975,163.447095,55.57674,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 46.0549169132725,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.16, 0.17, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_165.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_175.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 250.36562999999998,157.73586,58.978184999999996,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 45.27661502334047,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.17, 0.18, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_175.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_185.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 249.35327999999998,153.523005,61.553684999999994,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 44.44179632593951,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.18, 0.19, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_185.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_195.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 247.817925,147.99741,65.007405,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 43.55795829954557,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.19, 0.2, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_195.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_205.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 246.53349,143.92098000000001,67.60509,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 42.63224275041666,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.2, 0.21, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_205.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_215.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 245.14068,139.90218000000002,70.202775,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 41.663611023796136,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.21, 0.22, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_215.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_225.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 243.12414,134.6298,73.665165,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 40.64284400391277,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.22, 0.23, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_225.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_235.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 241.498005,130.738245,76.257495,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 39.56036690277732,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.23, 0.24, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_235.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_245.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 239.77981499999999,126.89871,78.845235,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 38.406604932400526,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.24, 0.25, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_245.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_255.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 237.35349,121.856085,82.287735,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 37.172524481073786,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.25, 0.26, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_255.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_265.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 235.438185,118.129005,84.864255,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 35.86153899154296,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.26, 0.27, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_265.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_275.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 233.445105,114.445785,87.43695,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 34.489508961008426,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.27, 0.28, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_275.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_285.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 230.67325499999998,109.598235,90.863895,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 33.0728360629512,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.28, 0.29, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_285.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_295.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 228.513405,106.00656000000001,93.433785,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 31.627921970852277,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.29, 0.3, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_295.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_305.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 225.53118,101.27044500000001,96.8643,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 30.171159325288176,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.3, 0.31, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_305.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_315.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 223.22088000000002,97.753485,99.44388,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 28.718733010032004,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.31, 0.32, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_315.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_325.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 220.84989000000002,94.2633,102.03213,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 27.286620152053494,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.32, 0.33, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_325.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_335.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 217.596345,89.646015,105.50216999999999,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 25.890788845417863,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.33, 0.34, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_335.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_345.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 215.08842,86.20581,108.12331499999999,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 24.547207184190338,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.34, 0.35, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_345.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_355.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 212.52261,82.781925,110.76333,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 23.271238217773494,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.35, 0.36, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_355.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_365.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 209.011005,78.23706,114.31803,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 22.064328968328986,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.36, 0.37, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_365.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_375.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 206.30826,74.840205,117.01185,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 20.914010430777566,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.37, 0.38, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_375.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_385.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 202.609995,70.32135000000001,120.644835,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 19.80720855537732,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.38, 0.39, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_385.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_395.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 199.76266500000003,66.9375,123.39909,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 18.730849292386353,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.39, 0.4, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_395.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_405.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 196.84929,63.555434999999996,126.17731500000001,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 17.672287803617838,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.4, 0.41, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_405.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_415.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 192.85752,59.046525,129.91434,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 16.62875111665203,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.41, 0.42, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_415.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_425.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 189.77916,55.66344,132.73362,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 15.60733812483623,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.42, 0.43, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_425.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_435.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 186.62481,52.278315,135.558255,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 14.615576933072838,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.43, 0.44, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_435.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_445.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 182.29516500000003,47.761244999999995,139.31619,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 13.660995646264244,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.44, 0.45, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_445.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_455.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 178.95109499999998,44.371275,142.11048,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 12.75091056775514,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.45, 0.46, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_455.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_465.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 175.52109,40.980795,144.866265,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 11.887766565062885,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.46, 0.47, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_465.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_475.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 170.810475,36.46296,148.44926999999998,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 11.069137069877506,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.47, 0.48, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_475.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_485.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 167.17290000000003,33.079875,151.040835,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 10.292383712331326,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.48, 0.49, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_485.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_495.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 162.18204,28.58346,154.327275,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 9.55486812255666,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.49, 0.5, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_495.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_505.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 158.334345,25.22817,156.635535,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 8.854069925361587,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.5, 0.51, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_505.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_515.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 154.39867500000003,21.89277,158.78493,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 8.190182623096423,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.51, 0.52, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_515.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_525.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 149.019705,17.487645,161.36706,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 7.566113595653739,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.52, 0.53, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_525.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_535.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 144.891255,14.22339,163.066635,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 6.98488821760186,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.53, 0.54, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_535.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_545.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 140.687325,10.99968,164.545635,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 6.449531863509105,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.54, 0.55, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_545.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_555.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 134.97303000000002,7.0754850000000005,166.15443,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 5.962909730798507,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.55, 0.56, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_555.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_565.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 130.61253000000002,4.802415,167.078295,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 5.524202942551422,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.56, 0.57, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_565.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_575.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 124.70902500000001,2.582385,167.92616999999998,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 5.128908547507533,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.57, 0.58, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_575.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_585.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 120.221535,1.44789,168.273735,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 4.772363417261235,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.58, 0.59, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_585.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_595.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 115.687635,0.7025250000000001,168.37904999999998,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 4.449904423406918,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.59, 0.6, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_595.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_605.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 109.578345,0.211905,168.153375,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 4.156891151444386,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.6, 0.61, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_605.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_615.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 104.9529,0.14713500000000002,167.72115000000002,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 3.889205606697891,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.61, 0.62, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_615.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_625.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 100.29252,0.28407,167.07574499999998,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 3.6432522143161274,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.62, 0.63, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_625.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_635.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 94.02691499999999,0.69462,165.903255,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 3.4154581133532025,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.63, 0.64, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_635.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_645.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 89.28825,1.1174099999999998,164.80599,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 3.2022504428632255,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.64, 0.65, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_645.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_655.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 84.51363,1.596555,163.53558,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 3.000125663423949,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.65, 0.66, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_655.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_665.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 78.08355,2.27001,161.59197,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 2.8071746306570153,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.66, 0.67, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_665.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_675.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 73.20438,2.768025,159.960225,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 2.6230825952279577,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.67, 0.68, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_675.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_685.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 66.601665,3.3935400000000002,157.567305,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 2.447604129325953,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.68, 0.69, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_685.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_695.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 61.55598,3.819645,155.61604499999999,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 2.280493805140181,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.69, 0.7, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_695.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_705.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 56.405235000000005,4.206735,153.53116500000002,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 2.121506194859819,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.7, 0.71, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_705.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_715.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 49.31037,4.680269999999999,150.53415,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 1.970395870674047,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.71, 0.72, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_715.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_725.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 43.75137,5.02503,148.10553000000002,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 1.8269174047720425,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.72, 0.73, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_725.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_735.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 37.894785,5.39427,145.49331,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 1.6908253693429844,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.73, 0.74, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_735.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_745.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 29.35662,6.00678,141.64434,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 1.5618743365760517,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.74, 0.75, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_745.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_755.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 21.98661,6.661874999999999,138.37779,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 1.4398188786604216,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.75, 0.76, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_755.0','PMMA_back','INERT','INERT' /
+    
+&SURF ID                      = 'PMMA_CN_front_765.0',
+      FYI                     = 'Parameter from Cone_C5_PMMACN_h_rep99',
+      RGB                     = 12.847665,7.599765,134.633625,
+      CELL_SIZE_FACTOR        = 1.0,
+      STRETCH_FACTOR(1:1)     = 1.0,
+      BACKING                 = 'EXPOSED',
+      THICKNESS(1:2)          = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'PMMA_CN_6mm',
+      MATL_ID(2,1:1)          = 'PROMATECT',
+      HRRPUA                  = 1.0,
+      RAMP_Q                  = 'CONE_HRRPUA_25', 'CONE_HRRPUA_50', 'CONE_HRRPUA_75',
+      EXTERNAL_FLUX           = 1.3244135677852746,
+      REFERENCE_HEAT_FLUX     = 25,50,75,
+      IGNITION_TEMPERATURE    = 340.7745079335275,
+      HEAT_OF_VAPORIZATION    = 2029.3588585067885 /
+      
+&OBST XB = 0.76, 0.77, 0.0, 0.05, 0.0, 0.13, SURF_ID6 = 'INERT','INERT','PMMA_CN_front_765.0','PMMA_back','INERT','INERT' /
+
+&SURF ID = 'steelframe_0.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 49.5 /
+&OBST XB = -0.02, 0.00, -0.003, 0.05, -0.02, 0.15, SURF_ID = 'steelframe_0.0' /
+&SURF ID = 'steelframe_80.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 1.0 /
+&OBST XB = 0.770, 0.79, -0.003, 0.05, -0.02, 0.15, SURF_ID = 'steelframe_80.0' /
+
+&SURF ID = 'steelframe_5.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 49.71480577721426 /
+&OBST XB = 0.0, 0.01, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_5.0' /
+&OBST XB = 0.0, 0.01, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_5.0' /
+&SURF ID = 'steelframe_15.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 50.06178749979817 /
+&OBST XB = 0.01, 0.02, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_15.0' /
+&OBST XB = 0.01, 0.02, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_15.0' /
+&SURF ID = 'steelframe_25.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 50.304398634241785 /
+&OBST XB = 0.02, 0.03, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_25.0' /
+&OBST XB = 0.02, 0.03, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_25.0' /
+&SURF ID = 'steelframe_35.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 50.44960220572802 /
+&OBST XB = 0.03, 0.04, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_35.0' /
+&OBST XB = 0.03, 0.04, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_35.0' /
+&SURF ID = 'steelframe_45.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 50.50436123943983 /
+&OBST XB = 0.04, 0.05, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_45.0' /
+&OBST XB = 0.04, 0.05, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_45.0' /
+&SURF ID = 'steelframe_55.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 50.475638760560194 /
+&OBST XB = 0.05, 0.06, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_55.0' /
+&OBST XB = 0.05, 0.06, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_55.0' /
+&SURF ID = 'steelframe_65.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 50.370397794271994 /
+&OBST XB = 0.06, 0.07, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_65.0' /
+&OBST XB = 0.06, 0.07, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_65.0' /
+&SURF ID = 'steelframe_75.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 50.19560136575823 /
+&OBST XB = 0.07, 0.08, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_75.0' /
+&OBST XB = 0.07, 0.08, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_75.0' /
+&SURF ID = 'steelframe_85.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 49.958212500201824 /
+&OBST XB = 0.08, 0.09, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_85.0' /
+&OBST XB = 0.08, 0.09, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_85.0' /
+&SURF ID = 'steelframe_95.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 49.66519422278575 /
+&OBST XB = 0.09, 0.1, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_95.0' /
+&OBST XB = 0.09, 0.1, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_95.0' /
+&SURF ID = 'steelframe_105.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 49.32323918054507 /
+&OBST XB = 0.1, 0.11, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_105.0' /
+&OBST XB = 0.1, 0.11, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_105.0' /
+&SURF ID = 'steelframe_115.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 48.932821323113885 /
+&OBST XB = 0.11, 0.12, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_115.0' /
+&OBST XB = 0.11, 0.12, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_115.0' /
+&SURF ID = 'steelframe_125.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 48.48819590272533 /
+&OBST XB = 0.12, 0.13, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_125.0' /
+&OBST XB = 0.12, 0.13, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_125.0' /
+&SURF ID = 'steelframe_135.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 47.983347793464674 /
+&OBST XB = 0.13, 0.14, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_135.0' /
+&OBST XB = 0.13, 0.14, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_135.0' /
+&SURF ID = 'steelframe_145.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 47.41226186941717 /
+&OBST XB = 0.14, 0.15, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_145.0' /
+&OBST XB = 0.14, 0.15, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_145.0' /
+&SURF ID = 'steelframe_155.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 46.76920451725957 /
+&OBST XB = 0.15, 0.16, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_155.0' /
+&OBST XB = 0.15, 0.16, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_155.0' /
+&SURF ID = 'steelframe_165.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 46.0549169132725 /
+&OBST XB = 0.16, 0.17, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_165.0' /
+&OBST XB = 0.16, 0.17, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_165.0' /
+&SURF ID = 'steelframe_175.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 45.27661502334047 /
+&OBST XB = 0.17, 0.18, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_175.0' /
+&OBST XB = 0.17, 0.18, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_175.0' /
+&SURF ID = 'steelframe_185.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 44.44179632593951 /
+&OBST XB = 0.18, 0.19, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_185.0' /
+&OBST XB = 0.18, 0.19, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_185.0' /
+&SURF ID = 'steelframe_195.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 43.55795829954557 /
+&OBST XB = 0.19, 0.2, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_195.0' /
+&OBST XB = 0.19, 0.2, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_195.0' /
+&SURF ID = 'steelframe_205.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 42.63224275041666 /
+&OBST XB = 0.2, 0.21, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_205.0' /
+&OBST XB = 0.2, 0.21, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_205.0' /
+&SURF ID = 'steelframe_215.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 41.663611023796136 /
+&OBST XB = 0.21, 0.22, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_215.0' /
+&OBST XB = 0.21, 0.22, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_215.0' /
+&SURF ID = 'steelframe_225.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 40.64284400391277 /
+&OBST XB = 0.22, 0.23, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_225.0' /
+&OBST XB = 0.22, 0.23, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_225.0' /
+&SURF ID = 'steelframe_235.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 39.56036690277732 /
+&OBST XB = 0.23, 0.24, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_235.0' /
+&OBST XB = 0.23, 0.24, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_235.0' /
+&SURF ID = 'steelframe_245.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 38.406604932400526 /
+&OBST XB = 0.24, 0.25, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_245.0' /
+&OBST XB = 0.24, 0.25, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_245.0' /
+&SURF ID = 'steelframe_255.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 37.172524481073786 /
+&OBST XB = 0.25, 0.26, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_255.0' /
+&OBST XB = 0.25, 0.26, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_255.0' /
+&SURF ID = 'steelframe_265.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 35.86153899154296 /
+&OBST XB = 0.26, 0.27, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_265.0' /
+&OBST XB = 0.26, 0.27, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_265.0' /
+&SURF ID = 'steelframe_275.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 34.489508961008426 /
+&OBST XB = 0.27, 0.28, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_275.0' /
+&OBST XB = 0.27, 0.28, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_275.0' /
+&SURF ID = 'steelframe_285.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 33.0728360629512 /
+&OBST XB = 0.28, 0.29, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_285.0' /
+&OBST XB = 0.28, 0.29, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_285.0' /
+&SURF ID = 'steelframe_295.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 31.627921970852277 /
+&OBST XB = 0.29, 0.3, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_295.0' /
+&OBST XB = 0.29, 0.3, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_295.0' /
+&SURF ID = 'steelframe_305.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 30.171159325288176 /
+&OBST XB = 0.3, 0.31, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_305.0' /
+&OBST XB = 0.3, 0.31, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_305.0' /
+&SURF ID = 'steelframe_315.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 28.718733010032004 /
+&OBST XB = 0.31, 0.32, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_315.0' /
+&OBST XB = 0.31, 0.32, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_315.0' /
+&SURF ID = 'steelframe_325.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 27.286620152053494 /
+&OBST XB = 0.32, 0.33, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_325.0' /
+&OBST XB = 0.32, 0.33, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_325.0' /
+&SURF ID = 'steelframe_335.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 25.890788845417863 /
+&OBST XB = 0.33, 0.34, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_335.0' /
+&OBST XB = 0.33, 0.34, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_335.0' /
+&SURF ID = 'steelframe_345.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 24.547207184190338 /
+&OBST XB = 0.34, 0.35, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_345.0' /
+&OBST XB = 0.34, 0.35, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_345.0' /
+&SURF ID = 'steelframe_355.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 23.271238217773494 /
+&OBST XB = 0.35, 0.36, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_355.0' /
+&OBST XB = 0.35, 0.36, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_355.0' /
+&SURF ID = 'steelframe_365.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 22.064328968328986 /
+&OBST XB = 0.36, 0.37, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_365.0' /
+&OBST XB = 0.36, 0.37, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_365.0' /
+&SURF ID = 'steelframe_375.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 20.914010430777566 /
+&OBST XB = 0.37, 0.38, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_375.0' /
+&OBST XB = 0.37, 0.38, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_375.0' /
+&SURF ID = 'steelframe_385.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 19.80720855537732 /
+&OBST XB = 0.38, 0.39, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_385.0' /
+&OBST XB = 0.38, 0.39, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_385.0' /
+&SURF ID = 'steelframe_395.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 18.730849292386353 /
+&OBST XB = 0.39, 0.4, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_395.0' /
+&OBST XB = 0.39, 0.4, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_395.0' /
+&SURF ID = 'steelframe_405.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 17.672287803617838 /
+&OBST XB = 0.4, 0.41, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_405.0' /
+&OBST XB = 0.4, 0.41, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_405.0' /
+&SURF ID = 'steelframe_415.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 16.62875111665203 /
+&OBST XB = 0.41, 0.42, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_415.0' /
+&OBST XB = 0.41, 0.42, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_415.0' /
+&SURF ID = 'steelframe_425.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 15.60733812483623 /
+&OBST XB = 0.42, 0.43, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_425.0' /
+&OBST XB = 0.42, 0.43, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_425.0' /
+&SURF ID = 'steelframe_435.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 14.615576933072838 /
+&OBST XB = 0.43, 0.44, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_435.0' /
+&OBST XB = 0.43, 0.44, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_435.0' /
+&SURF ID = 'steelframe_445.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 13.660995646264244 /
+&OBST XB = 0.44, 0.45, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_445.0' /
+&OBST XB = 0.44, 0.45, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_445.0' /
+&SURF ID = 'steelframe_455.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 12.75091056775514 /
+&OBST XB = 0.45, 0.46, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_455.0' /
+&OBST XB = 0.45, 0.46, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_455.0' /
+&SURF ID = 'steelframe_465.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 11.887766565062885 /
+&OBST XB = 0.46, 0.47, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_465.0' /
+&OBST XB = 0.46, 0.47, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_465.0' /
+&SURF ID = 'steelframe_475.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 11.069137069877506 /
+&OBST XB = 0.47, 0.48, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_475.0' /
+&OBST XB = 0.47, 0.48, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_475.0' /
+&SURF ID = 'steelframe_485.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 10.292383712331326 /
+&OBST XB = 0.48, 0.49, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_485.0' /
+&OBST XB = 0.48, 0.49, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_485.0' /
+&SURF ID = 'steelframe_495.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 9.55486812255666 /
+&OBST XB = 0.49, 0.5, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_495.0' /
+&OBST XB = 0.49, 0.5, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_495.0' /
+&SURF ID = 'steelframe_505.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 8.854069925361587 /
+&OBST XB = 0.5, 0.51, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_505.0' /
+&OBST XB = 0.5, 0.51, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_505.0' /
+&SURF ID = 'steelframe_515.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 8.190182623096423 /
+&OBST XB = 0.51, 0.52, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_515.0' /
+&OBST XB = 0.51, 0.52, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_515.0' /
+&SURF ID = 'steelframe_525.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 7.566113595653739 /
+&OBST XB = 0.52, 0.53, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_525.0' /
+&OBST XB = 0.52, 0.53, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_525.0' /
+&SURF ID = 'steelframe_535.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 6.98488821760186 /
+&OBST XB = 0.53, 0.54, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_535.0' /
+&OBST XB = 0.53, 0.54, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_535.0' /
+&SURF ID = 'steelframe_545.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 6.449531863509105 /
+&OBST XB = 0.54, 0.55, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_545.0' /
+&OBST XB = 0.54, 0.55, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_545.0' /
+&SURF ID = 'steelframe_555.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 5.962909730798507 /
+&OBST XB = 0.55, 0.56, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_555.0' /
+&OBST XB = 0.55, 0.56, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_555.0' /
+&SURF ID = 'steelframe_565.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 5.524202942551422 /
+&OBST XB = 0.56, 0.57, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_565.0' /
+&OBST XB = 0.56, 0.57, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_565.0' /
+&SURF ID = 'steelframe_575.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 5.128908547507533 /
+&OBST XB = 0.57, 0.58, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_575.0' /
+&OBST XB = 0.57, 0.58, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_575.0' /
+&SURF ID = 'steelframe_585.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 4.772363417261235 /
+&OBST XB = 0.58, 0.59, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_585.0' /
+&OBST XB = 0.58, 0.59, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_585.0' /
+&SURF ID = 'steelframe_595.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 4.449904423406918 /
+&OBST XB = 0.59, 0.6, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_595.0' /
+&OBST XB = 0.59, 0.6, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_595.0' /
+&SURF ID = 'steelframe_605.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 4.156891151444386 /
+&OBST XB = 0.6, 0.61, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_605.0' /
+&OBST XB = 0.6, 0.61, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_605.0' /
+&SURF ID = 'steelframe_615.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 3.889205606697891 /
+&OBST XB = 0.61, 0.62, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_615.0' /
+&OBST XB = 0.61, 0.62, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_615.0' /
+&SURF ID = 'steelframe_625.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 3.6432522143161274 /
+&OBST XB = 0.62, 0.63, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_625.0' /
+&OBST XB = 0.62, 0.63, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_625.0' /
+&SURF ID = 'steelframe_635.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 3.4154581133532025 /
+&OBST XB = 0.63, 0.64, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_635.0' /
+&OBST XB = 0.63, 0.64, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_635.0' /
+&SURF ID = 'steelframe_645.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 3.2022504428632255 /
+&OBST XB = 0.64, 0.65, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_645.0' /
+&OBST XB = 0.64, 0.65, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_645.0' /
+&SURF ID = 'steelframe_655.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 3.000125663423949 /
+&OBST XB = 0.65, 0.66, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_655.0' /
+&OBST XB = 0.65, 0.66, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_655.0' /
+&SURF ID = 'steelframe_665.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 2.8071746306570153 /
+&OBST XB = 0.66, 0.67, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_665.0' /
+&OBST XB = 0.66, 0.67, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_665.0' /
+&SURF ID = 'steelframe_675.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 2.6230825952279577 /
+&OBST XB = 0.67, 0.68, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_675.0' /
+&OBST XB = 0.67, 0.68, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_675.0' /
+&SURF ID = 'steelframe_685.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 2.447604129325953 /
+&OBST XB = 0.68, 0.69, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_685.0' /
+&OBST XB = 0.68, 0.69, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_685.0' /
+&SURF ID = 'steelframe_695.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 2.280493805140181 /
+&OBST XB = 0.69, 0.7, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_695.0' /
+&OBST XB = 0.69, 0.7, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_695.0' /
+&SURF ID = 'steelframe_705.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 2.121506194859819 /
+&OBST XB = 0.7, 0.71, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_705.0' /
+&OBST XB = 0.7, 0.71, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_705.0' /
+&SURF ID = 'steelframe_715.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 1.970395870674047 /
+&OBST XB = 0.71, 0.72, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_715.0' /
+&OBST XB = 0.71, 0.72, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_715.0' /
+&SURF ID = 'steelframe_725.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 1.8269174047720425 /
+&OBST XB = 0.72, 0.73, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_725.0' /
+&OBST XB = 0.72, 0.73, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_725.0' /
+&SURF ID = 'steelframe_735.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 1.6908253693429844 /
+&OBST XB = 0.73, 0.74, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_735.0' /
+&OBST XB = 0.73, 0.74, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_735.0' /
+&SURF ID = 'steelframe_745.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 1.5618743365760517 /
+&OBST XB = 0.74, 0.75, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_745.0' /
+&OBST XB = 0.74, 0.75, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_745.0' /
+&SURF ID = 'steelframe_755.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 1.4398188786604216 /
+&OBST XB = 0.75, 0.76, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_755.0' /
+&OBST XB = 0.75, 0.76, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_755.0' /
+&SURF ID = 'steelframe_765.0', MATL_ID = 'STEEL', THICKNESS = 0.003, RGB = 67,75,77, EXTERNAL_FLUX = 1.3244135677852746 /
+&OBST XB = 0.76, 0.77, -0.003, 0.05, 0.130, 0.15, SURF_ID = 'steelframe_765.0' /
+&OBST XB = 0.76, 0.77, -0.003, 0.05, -0.02, 0.00, SURF_ID = 'steelframe_765.0' /
+
+CONE_RAMP for 25 kW/m² in Vertical Orientation
+&RAMP ID = 'CONE_HRRPUA_25', T = 0, F = 126.5 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 5, F = 207.2 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 10, F = 259.5 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 15, F = 289.7 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 20, F = 305.1 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 25, F = 312.6 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 30, F = 316.1 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 35, F = 317.6 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 40, F = 318.7 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 45, F = 330.7 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 50, F = 332.9 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 55, F = 337.9 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 60, F = 340.4 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 65, F = 337.1 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 70, F = 339.4 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 75, F = 351.0 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 80, F = 353.2 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 85, F = 350.4 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 90, F = 355.5 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 95, F = 355.4 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 100, F = 358.2 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 105, F = 363.4 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 110, F = 362.3 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 115, F = 367.7 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 120, F = 372.8 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 125, F = 370.9 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 130, F = 379.2 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 135, F = 378.5 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 140, F = 382.8 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 145, F = 383.4 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 150, F = 384.6 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 155, F = 389.9 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 160, F = 392.5 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 165, F = 400.1 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 170, F = 404.0 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 175, F = 398.6 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 180, F = 403.2 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 185, F = 408.3 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 190, F = 410.7 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 195, F = 420.9 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 200, F = 418.6 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 205, F = 429.8 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 210, F = 429.0 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 215, F = 435.4 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 220, F = 439.7 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 225, F = 443.2 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 230, F = 452.4 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 235, F = 458.2 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 240, F = 454.4 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 245, F = 473.8 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 250, F = 468.4 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 255, F = 482.0 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 260, F = 493.7 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 265, F = 502.5 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 270, F = 513.6 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 275, F = 510.3 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 280, F = 517.0 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 285, F = 523.5 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 290, F = 534.8 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 295, F = 532.8 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 300, F = 545.5 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 305, F = 544.9 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 310, F = 534.5 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 315, F = 501.7 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 320, F = 481.4 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 325, F = 457.1 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 330, F = 437.7 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 335, F = 426.8 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 340, F = 406.2 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 345, F = 398.0 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 350, F = 372.2 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 355, F = 353.7 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 360, F = 333.5 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 365, F = 315.6 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 370, F = 290.2 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 375, F = 269.9 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 380, F = 243.7 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 385, F = 226.2 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 390, F = 211.6 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 395, F = 199.6 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 400, F = 186.9 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 405, F = 171.9 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 410, F = 163.4 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 415, F = 158.0 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 420, F = 147.5 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 425, F = 139.1 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 430, F = 133.3 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 435, F = 127.6 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 440, F = 122.3 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 445, F = 120.2 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 450, F = 118.1 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 455, F = 112.1 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 460, F = 111.1 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 465, F = 104.4 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 470, F = 103.4 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 475, F = 99.0 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 480, F = 97.5 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 485, F = 91.1 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 490, F = 92.3 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 495, F = 89.3 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 500, F = 86.6 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 505, F = 83.3 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 510, F = 81.4 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 515, F = 78.4 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 520, F = 75.6 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 525, F = 73.0 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 530, F = 70.5 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 535, F = 68.2 /
+&RAMP ID = 'CONE_HRRPUA_25', T = 540, F = 65.6 /
+CONE_RAMP for 50 kW/m² in Vertical Orientation
+&RAMP ID = 'CONE_HRRPUA_50', T = 0, F = 163.8 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 5, F = 345.5 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 10, F = 424.8 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 15, F = 459.4 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 20, F = 475.4 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 25, F = 492.3 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 30, F = 509.7 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 35, F = 520.8 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 40, F = 536.2 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 45, F = 537.6 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 50, F = 569.8 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 55, F = 561.2 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 60, F = 573.8 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 65, F = 570.9 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 70, F = 574.4 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 75, F = 595.5 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 80, F = 589.9 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 85, F = 609.0 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 90, F = 601.3 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 95, F = 610.1 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 100, F = 620.4 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 105, F = 617.8 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 110, F = 642.6 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 115, F = 645.5 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 120, F = 654.0 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 125, F = 644.6 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 130, F = 674.7 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 135, F = 689.7 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 140, F = 683.7 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 145, F = 698.8 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 150, F = 708.2 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 155, F = 721.8 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 160, F = 724.9 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 165, F = 727.7 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 170, F = 751.2 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 175, F = 750.1 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 180, F = 777.3 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 185, F = 811.9 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 190, F = 824.6 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 195, F = 831.5 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 200, F = 847.0 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 205, F = 845.8 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 210, F = 803.5 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 215, F = 748.2 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 220, F = 673.9 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 225, F = 619.5 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 230, F = 560.9 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 235, F = 509.1 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 240, F = 457.9 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 245, F = 409.7 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 250, F = 379.2 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 255, F = 348.3 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 260, F = 320.2 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 265, F = 295.3 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 270, F = 273.8 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 275, F = 262.1 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 280, F = 242.4 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 285, F = 231.1 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 290, F = 213.5 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 295, F = 199.9 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 300, F = 188.2 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 305, F = 174.2 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 310, F = 166.8 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 315, F = 156.8 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 320, F = 141.9 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 325, F = 133.8 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 330, F = 123.3 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 335, F = 114.6 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 340, F = 105.2 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 345, F = 99.3 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 350, F = 93.0 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 355, F = 88.4 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 360, F = 85.8 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 365, F = 79.4 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 370, F = 76.0 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 375, F = 75.4 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 380, F = 71.5 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 385, F = 69.2 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 390, F = 67.9 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 395, F = 65.5 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 400, F = 63.9 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 405, F = 62.2 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 410, F = 59.3 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 415, F = 58.8 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 420, F = 57.4 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 425, F = 56.0 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 430, F = 55.4 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 435, F = 53.8 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 440, F = 51.0 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 445, F = 50.9 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 450, F = 51.0 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 455, F = 51.2 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 460, F = 49.1 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 465, F = 48.6 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 470, F = 48.4 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 475, F = 46.7 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 480, F = 45.0 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 485, F = 44.0 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 490, F = 42.7 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 495, F = 41.4 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 500, F = 41.1 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 505, F = 39.9 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 510, F = 39.2 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 515, F = 38.3 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 520, F = 38.4 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 525, F = 36.1 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 530, F = 33.0 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 535, F = 32.4 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 540, F = 30.1 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 545, F = 29.3 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 550, F = 28.5 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 555, F = 27.3 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 560, F = 26.3 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 565, F = 24.8 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 570, F = 24.1 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 575, F = 22.4 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 580, F = 21.6 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 585, F = 20.1 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 590, F = 18.9 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 595, F = 18.3 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 600, F = 18.7 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 605, F = 17.2 /
+&RAMP ID = 'CONE_HRRPUA_50', T = 610, F = 15.9 /
+CONE_RAMP for 75 kW/m² in Vertical Orientation
+&RAMP ID = 'CONE_HRRPUA_75', T = 0, F = 220.1 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 5, F = 494.3 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 10, F = 657.3 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 15, F = 682.6 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 20, F = 702.6 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 25, F = 706.5 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 30, F = 716.3 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 35, F = 753.9 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 40, F = 740.2 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 45, F = 768.4 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 50, F = 784.1 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 55, F = 775.2 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 60, F = 794.4 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 65, F = 782.1 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 70, F = 799.3 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 75, F = 832.9 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 80, F = 821.8 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 85, F = 837.7 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 90, F = 846.6 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 95, F = 858.8 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 100, F = 848.9 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 105, F = 871.5 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 110, F = 889.1 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 115, F = 926.9 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 120, F = 943.3 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 125, F = 931.2 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 130, F = 987.2 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 135, F = 997.8 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 140, F = 1050.6 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 145, F = 1077.8 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 150, F = 1113.2 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 155, F = 1045.0 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 160, F = 976.8 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 165, F = 845.2 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 170, F = 722.7 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 175, F = 639.5 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 180, F = 535.1 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 185, F = 461.4 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 190, F = 418.8 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 195, F = 381.0 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 200, F = 351.5 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 205, F = 328.6 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 210, F = 302.7 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 215, F = 266.9 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 220, F = 240.1 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 225, F = 209.1 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 230, F = 186.2 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 235, F = 168.4 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 240, F = 156.3 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 245, F = 140.2 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 250, F = 128.7 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 255, F = 120.4 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 260, F = 113.4 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 265, F = 108.6 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 270, F = 104.2 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 275, F = 97.4 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 280, F = 93.8 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 285, F = 92.9 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 290, F = 89.5 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 295, F = 86.1 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 300, F = 84.7 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 305, F = 84.0 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 310, F = 81.6 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 315, F = 80.0 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 320, F = 78.2 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 325, F = 74.7 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 330, F = 71.6 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 335, F = 65.2 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 340, F = 62.2 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 345, F = 58.6 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 350, F = 55.6 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 355, F = 52.1 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 360, F = 48.9 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 365, F = 44.2 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 370, F = 41.5 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 375, F = 37.3 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 380, F = 34.2 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 385, F = 32.7 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 390, F = 31.6 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 395, F = 30.6 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 400, F = 29.6 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 405, F = 27.5 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 410, F = 26.0 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 415, F = 24.8 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 420, F = 23.0 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 425, F = 21.1 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 430, F = 19.9 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 435, F = 19.5 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 440, F = 18.6 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 445, F = 17.5 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 450, F = 16.2 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 455, F = 15.0 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 460, F = 13.8 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 465, F = 12.3 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 470, F = 11.1 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 475, F = 11.4 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 480, F = 10.4 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 485, F = 9.3 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 490, F = 9.0 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 495, F = 8.0 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 500, F = 7.9 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 505, F = 7.2 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 510, F = 6.0 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 515, F = 5.3 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 520, F = 6.0 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 525, F = 5.2 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 530, F = 5.1 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 535, F = 4.6 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 540, F = 4.8 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 545, F = 4.6 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 550, F = 4.0 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 555, F = 3.1 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 560, F = 2.9 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 565, F = 2.3 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 570, F = 2.1 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 575, F = 2.1 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 580, F = 2.1 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 585, F = 2.2 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 590, F = 2.1 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 595, F = 0.8 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 600, F = 0.3 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 605, F = 0 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 610, F = 0 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 615, F = 0 /
+&RAMP ID = 'CONE_HRRPUA_75', T = 620, F = 0 /
+
+&TAIL /
