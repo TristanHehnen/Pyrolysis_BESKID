@@ -1,0 +1,270 @@
+&HEAD CHID='Cone_GEOM_Template_01'
+      TITLE='Simplified Cone Calorimeter simulation setup' /
+
+&TIME T_END          = 0.0,
+      WALL_INCREMENT = 1 /
+
+&MISC SIMULATION_MODE  = 'LES',
+      BNDF_DEFAULT     = F,
+      SOLID_PHASE_ONLY = F,
+      TMPA             = 20.0 /
+
+&RADI NUMBER_RADIATION_ANGLES = 104
+      PATH_LENGTH             = 0.1 /
+
+&DUMP NFRAMES = 61 /
+
+
+***** Computational Domain ********************
+# Activate what you need by adding the '&' character
+# Deactivate by removeing it.
+
+
+# For testing
+# Full MESH enclosing heater and sample/gauge
+# Resolution C9, i.e. 10 cm / 9
+
+ MESH ID  = 'New MESH_i0_j0_k0'
+      IJK = 27,27,27,
+      XB  = -0.15, 0.15,-0.15, 0.15, -0.1,0.20 /
+
+# For testing
+# Full MESH enclosing heater and sample/gauge
+# Resolution C15, i.e. 10 cm / 15
+
+&MESH ID  = 'New MESH_i0_j0_k0'
+      IJK = 75,75,75,
+      XB  = -0.15, 0.15,-0.15, 0.15, -0.1,0.20 /
+
+# Resolution C21, i.e. 10 cm / 21
+# Intended to be used as 3 x 3 x 3 MESHes
+Cell Qty: 9261 | Size: 0.005·0.005·0.005m | Aspect: 1.0 | Poisson: No
+
+ MESH ID='New MESH_i0_j0_k0'
+      IJK=21,21,21,
+      XB=-0.15,-0.05,-0.15,-0.05,-0.10,0.00 /
+
+
+# Resolution C45, i.e. 10 cm / 45, Full Cover
+# Distributed over 6 cm cubed MESHes to use multiple CPUs
+# Intended to be used as 5 x 5 x 5 MESHes
+Cell Qty: 19683 | Size: 0.002·0.002·0.002m | Aspect: 1.0 | Poisson: Yes
+
+ MESH MULT_ID='Mesh_C45_Full_Cover',
+      IJK=27,27,27,
+      XB=-0.15,-0.09,-0.15,-0.09,-0.10,-0.04 /
+
+ MULT ID='Mesh_C45_Full_Cover',
+      DX=0.06, DY=0.06, DZ=0.06,
+      I_UPPER=4, J_UPPER=4, K_UPPER=4 /
+
+
+
+# Resolution C45, i.e. 10 cm / 45, Reduced Cover for less computational cost
+# Distributed over 6 cm cubed MESHes to use multiple CPUs
+# Intended to be used as 5 x 5 x 3 MESHes
+Cell Qty: 19683 | Size: 0.002·0.002·0.002m | Aspect: 1.0 | Poisson: Yes
+
+ MESH MULT_ID='Mesh_C45_Reduced_Cover',
+      IJK=27,27,27,
+      XB=-0.15,-0.09,-0.15,-0.09,-0.04,0.02 /
+
+ MULT ID='Mesh_C45_Reduced_Cover',
+      DX=0.06, DY=0.06, DZ=0.06,
+      I_UPPER=4, J_UPPER=4, K_UPPER=2 /
+
+
+
+***** Open Vents ********************
+
+&VENT MB='XMIN', SURF_ID='OPEN' /
+&VENT MB='XMAX', SURF_ID='OPEN' /
+&VENT MB='YMIN', SURF_ID='OPEN' /
+&VENT MB='YMAX', SURF_ID='OPEN' /
+&VENT MB='ZMIN', SURF_ID='OPEN' /
+&VENT MB='ZMAX', SURF_ID='OPEN' /
+
+
+
+***** Surfaces ********************
+
+From Babrauskas's report:
+75 kW/m2: 841 ˚C
+50 kW/m2: 744 ˚C
+25 kW/m2: 592 ˚C
+Estimated:
+65 kW/m2: 804 ˚C
+
+
+&SURF ID         = 'ConeHeater',
+      RGB        = 255,31,5,
+      EMISSIVITY = 1.4733333333333334,
+      TMP_FRONT  = 592.0,
+      RAMP_T     = 'CONE' /
+
+&RAMP ID='CONE' T=0 F=0 /
+&RAMP ID='CONE' T=6 F=1 /
+
+
+&SURF ID='StainlessSteel',
+      RGB=192,192,192,
+      BACKING='EXPOSED',
+      MATL_ID(1,1)='STEEL',
+      THICKNESS(1)=0.002,
+      MATL_MASS_FRACTION(1,1)=1.0 /
+
+
+&SURF ID='StainlessSteel_Cooled',
+      RGB=192,192,192,
+      TMP_FRONT=20,
+      BACKING='EXPOSED',
+      MATL_ID(1,1)='STEEL',
+      THICKNESS(1)=0.002,
+      MATL_MASS_FRACTION(1,1)=1.0 /
+
+
+&SURF ID='StainlessSteel_Sensor',
+      FYI='emissivity from sensor calibration document',
+      RGB=7,6,5,
+      TMP_FRONT=20,
+      EMISSIVITY=0.94,
+      BACKING='EXPOSED',
+      MATL_ID(1,1)='STEEL',
+      THICKNESS(1)=0.002,
+      MATL_MASS_FRACTION(1,1)=1.0 /
+
+
+
+***** Materials ********************
+
+&MATL ID='STEEL' FYI='Eurocode 3' DENSITY=7850.0
+      CONDUCTIVITY_RAMP='STEEL_CONDUCTIVITY_RAMP'
+      SPECIFIC_HEAT_RAMP='STEEL_SPECIFIC_HEAT_RAMP' /
+
+&RAMP ID='STEEL_SPECIFIC_HEAT_RAMP' T=0.0 F=0.425 /
+&RAMP ID='STEEL_SPECIFIC_HEAT_RAMP' T=20.0 F=0.439802 /
+&RAMP ID='STEEL_SPECIFIC_HEAT_RAMP' T=100.0 F=0.48762 /
+&RAMP ID='STEEL_SPECIFIC_HEAT_RAMP' T=200.0 F=0.52976 /
+&RAMP ID='STEEL_SPECIFIC_HEAT_RAMP' T=300.0 F=0.56474 /
+&RAMP ID='STEEL_SPECIFIC_HEAT_RAMP' T=400.0 F=0.60588 /
+&RAMP ID='STEEL_SPECIFIC_HEAT_RAMP' T=500.0 F=0.6665 /
+&RAMP ID='STEEL_SPECIFIC_HEAT_RAMP' T=600.0 F=0.75992 /
+&RAMP ID='STEEL_SPECIFIC_HEAT_RAMP' T=600.01 F=0.760224 /
+&RAMP ID='STEEL_SPECIFIC_HEAT_RAMP' T=620.0 F=0.776186 /
+&RAMP ID='STEEL_SPECIFIC_HEAT_RAMP' T=640.0 F=0.798673 /
+&RAMP ID='STEEL_SPECIFIC_HEAT_RAMP' T=660.0 F=0.832692 /
+&RAMP ID='STEEL_SPECIFIC_HEAT_RAMP' T=680.0 F=0.890172 /
+&RAMP ID='STEEL_SPECIFIC_HEAT_RAMP' T=700.0 F=1.008158 /
+&RAMP ID='STEEL_SPECIFIC_HEAT_RAMP' T=720.0 F=1.388333 /
+&RAMP ID='STEEL_SPECIFIC_HEAT_RAMP' T=735.0 F=5.0 /
+&RAMP ID='STEEL_SPECIFIC_HEAT_RAMP' T=735.01 F=4.98889 /
+&RAMP ID='STEEL_SPECIFIC_HEAT_RAMP' T=740.0 F=2.525 /
+&RAMP ID='STEEL_SPECIFIC_HEAT_RAMP' T=760.0 F=1.159483 /
+&RAMP ID='STEEL_SPECIFIC_HEAT_RAMP' T=780.0 F=0.908673 /
+&RAMP ID='STEEL_SPECIFIC_HEAT_RAMP' T=800.0 F=0.803261 /
+&RAMP ID='STEEL_SPECIFIC_HEAT_RAMP' T=820.0 F=0.745225 /
+&RAMP ID='STEEL_SPECIFIC_HEAT_RAMP' T=840.0 F=0.708486 /
+&RAMP ID='STEEL_SPECIFIC_HEAT_RAMP' T=860.0 F=0.68314 /
+&RAMP ID='STEEL_SPECIFIC_HEAT_RAMP' T=880.0 F=0.664597 /
+&RAMP ID='STEEL_SPECIFIC_HEAT_RAMP' T=900.0 F=0.650444 /
+&RAMP ID='STEEL_SPECIFIC_HEAT_RAMP' T=900.01 F=0.65 /
+&RAMP ID='STEEL_SPECIFIC_HEAT_RAMP' T=1000.0 F=0.65 /
+&RAMP ID='STEEL_SPECIFIC_HEAT_RAMP' T=1100.0 F=0.65 /
+&RAMP ID='STEEL_SPECIFIC_HEAT_RAMP' T=1200.0 F=0.65 /
+&RAMP ID='STEEL_CONDUCTIVITY_RAMP' T=0.0 F=54.0 /
+&RAMP ID='STEEL_CONDUCTIVITY_RAMP' T=20.0 F=53.334 /
+&RAMP ID='STEEL_CONDUCTIVITY_RAMP' T=100.0 F=50.67 /
+&RAMP ID='STEEL_CONDUCTIVITY_RAMP' T=200.0 F=47.34 /
+&RAMP ID='STEEL_CONDUCTIVITY_RAMP' T=300.0 F=44.01 /
+&RAMP ID='STEEL_CONDUCTIVITY_RAMP' T=400.0 F=40.68 /
+&RAMP ID='STEEL_CONDUCTIVITY_RAMP' T=500.0 F=37.35 /
+&RAMP ID='STEEL_CONDUCTIVITY_RAMP' T=600.0 F=34.02 /
+&RAMP ID='STEEL_CONDUCTIVITY_RAMP' T=700.0 F=30.69 /
+&RAMP ID='STEEL_CONDUCTIVITY_RAMP' T=800.0 F=27.36 /
+&RAMP ID='STEEL_CONDUCTIVITY_RAMP' T=900.0 F=27.3 /
+&RAMP ID='STEEL_CONDUCTIVITY_RAMP' T=1000.0 F=27.3 /
+&RAMP ID='STEEL_CONDUCTIVITY_RAMP' T=1100.0 F=27.3 /
+&RAMP ID='STEEL_CONDUCTIVITY_RAMP' T=1200.0 F=27.3 /
+
+
+
+***** Geometry ********************
+
+-- Blender Collection: <FDS_Model_GEOM>
+
+-- Blender Collection: <HeatFluxGauge>
+ VENT ID='HeatFluxGauge_Sensor',
+      SURF_ID='StainlessSteel_Sensor',
+      XB=-0.0024,0.0024,-0.0024,0.0024,0.0000,0.0000 /
+
+ OBST ID='HeatFluxGauge',
+      SURF_ID= 'StainlessSteel_Cooled',
+      BNDF_OBST=T,
+      XB=-0.0071,0.0071,-0.0119,0.0119,-0.0238,0.0000 /
+
+ OBST ID='HeatFluxGauge.001',
+      SURF_ID= 'StainlessSteel_Cooled',
+      BNDF_OBST=T,
+      XB=0.0071,0.0119,-0.0071,0.0071,-0.0238,0.0000 /
+
+ OBST ID='HeatFluxGauge.002'
+      SURF_ID= 'StainlessSteel_Cooled',
+      BNDF_OBST=T,
+      XB=-0.0119,-0.0071,-0.0071,0.0071,-0.0238,0.0000 /
+
+ OBST ID='HeatFluxGauge_Connector',
+      SURF_ID= 'StainlessSteel_Cooled',
+      XB=-0.1171,-0.0119,-0.0024,0.0024,-0.0190,-0.0143 /
+
+ OBST ID='HeatFluxGauge_Holder',
+      SURF_ID= 'StainlessSteel_Cooled',
+      XB=-0.1500,-0.1119,-0.0167,0.0167,-0.0333,0.0000 /
+
+
+-- Blender Collection: <ConeSample>
+Vertices: 312 | Faces: 588
+&GEOM ID='SampleHolder' SURF_ID='StainlessSteel'
+      BINARY_FILE='F:\PhD\BESKID\PyrolysisModelling\Simulations\ConeCalibrationTest\Template\ConeSampleHolder.bingeom' /
+
+&OBST ID='SampleTarget',
+      BNDF_OBST=T,
+      SURF_IDS='StainlessSteel_Sensor', 'StainlessSteel_Cooled', 'StainlessSteel_Cooled',
+      XB=-0.05,0.05,-0.05,0.05,-0.0288,0.00 /
+
+
+-- Blender Collection: <ConeAssembly>
+Vertices: 24 | Faces: 36
+&GEOM ID='BasePlate' SURF_ID='StainlessSteel'
+      BINARY_FILE='F:\PhD\BESKID\PyrolysisModelling\Simulations\ConeCalibrationTest\Template\ConeBasePlate.bingeom' /
+
+Vertices: 1824 | Faces: 3648
+&GEOM ID='ConeAssembly03_LowRes' SURF_ID='StainlessSteel','ConeHeater'
+      BINARY_FILE='F:\PhD\BESKID\PyrolysisModelling\Simulations\ConeCalibrationTest\Template\ConeAssembly03_LowRes.bingeom' /
+
+Vertices: 48 | Faces: 96
+&GEOM ID='Hood' SURF_ID='StainlessSteel' BINARY_FILE='F:\PhD\BESKID\PyrolysisModelling\Simulations\ConeCalibrationTest\Template\ConeHood.bingeom' /
+
+Vertices: 1122 | Faces: 2208
+&GEOM ID='Support' SURF_ID='StainlessSteel' BINARY_FILE='F:\PhD\BESKID\PyrolysisModelling\Simulations\ConeCalibrationTest\Template\ConeSupport.bingeom' /
+
+Vertices: 306 | Faces: 624
+&GEOM ID='BracketA_Empty' SURF_ID='StainlessSteel'
+      BINARY_FILE='F:\PhD\BESKID\PyrolysisModelling\Simulations\ConeCalibrationTest\Template\ConeBracketA_Empty.bingeom' /
+
+
+
+***** Analysis ********************
+
+&BNDF QUANTITY='RADIATIVE HEAT FLUX' CELL_CENTERED=T /
+&BNDF QUANTITY='INCIDENT HEAT FLUX' CELL_CENTERED=T /
+&BNDF QUANTITY='NET HEAT FLUX' CELL_CENTERED=T /
+&BNDF QUANTITY='GAUGE HEAT FLUX' CELL_CENTERED=T /
+&BNDF QUANTITY='CONVECTIVE HEAT FLUX' CELL_CENTERED=T /
+
+
+&DEVC ID       = 'HeatFluxGauge',
+      XYZ      = 0,0,0,
+      IOR      = 3,
+      QUANTITY = 'GAUGE HEAT FLUX' /
+
+&TAIL /
