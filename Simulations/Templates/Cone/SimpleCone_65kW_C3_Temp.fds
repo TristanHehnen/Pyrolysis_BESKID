@@ -1,0 +1,148 @@
+&HEAD CHID='#CHID_Cone#',
+    TITLE='Simplified cone calorimeter simulation setup'  /
+
+3.33 cm cells
+&MESH ID  = 'Mesh',
+      IJK = 9,9,20
+      XB  = -0.15,0.15,-0.15,0.15,-0.066667,0.600000 /
+
+
+&TIME T_END=300, WALL_INCREMENT=1, DT=1.0 /
+&MISC SIMULATION_MODE = 'LES',
+      TMPA            = 20.0 /
+
+&DUMP NFRAMES=301 /
+
+
+
+##################
+#### Reaction ####
+##################
+
+
+***** REAC Parameters ******************
+
+&SPEC ID='ETHYLENE' /
+
+&REAC FUEL='ETHYLENE'
+      SOOT_YIELD = 0.022 /
+
+
+
+ ***** Open Vents ********************
+
+&VENT MB='XMIN', SURF_ID='OPEN' /
+&VENT MB='XMAX', SURF_ID='OPEN' /
+&VENT MB='YMIN', SURF_ID='OPEN' /
+&VENT MB='YMAX', SURF_ID='OPEN' /
+&VENT MB='ZMIN', SURF_ID='OPEN' /
+&VENT MB='ZMAX', SURF_ID='OPEN' /
+
+
+
+***** Surfaces and Materials ********************
+
+    &SURF ID                      = 'Flux Patch A',
+          EXTERNAL_FLUX           = 61.25646,
+          BACKING                 = 'EXPOSED',
+          MATL_ID(1,1:1)          = 'InertMockUpMaterial',
+          MATL_MASS_FRACTION(1,1) = 1.0 /
+    &SURF ID                      = 'Flux Patch B',
+          EXTERNAL_FLUX           = 64.10700,
+          BACKING                 = 'EXPOSED',
+          MATL_ID(1,1:1)          = 'InertMockUpMaterial',
+          MATL_MASS_FRACTION(1,1) = 1.0 /
+    &SURF ID                      = 'Flux Patch C',
+          EXTERNAL_FLUX           = 61.25190,
+          BACKING                 = 'EXPOSED',
+          MATL_ID(1,1:1)          = 'InertMockUpMaterial',
+          MATL_MASS_FRACTION(1,1) = 1.0 /
+    &SURF ID                      = 'Flux Patch D',
+          EXTERNAL_FLUX           = 64.10293,
+          BACKING                 = 'EXPOSED',
+          MATL_ID(1,1:1)          = 'InertMockUpMaterial',
+          MATL_MASS_FRACTION(1,1) = 1.0 /
+    &SURF ID                      = 'Flux Patch E',
+          EXTERNAL_FLUX           = 64.85566,
+          BACKING                 = 'EXPOSED',
+          MATL_ID(1,1:1)          = 'InertMockUpMaterial',
+          MATL_MASS_FRACTION(1,1) = 1.0 /
+    &SURF ID                      = 'Flux Patch F',
+          EXTERNAL_FLUX           = 64.10133,
+          BACKING                 = 'EXPOSED',
+          MATL_ID(1,1:1)          = 'InertMockUpMaterial',
+          MATL_MASS_FRACTION(1,1) = 1.0 /
+    &SURF ID                      = 'Flux Patch G',
+          EXTERNAL_FLUX           = 61.24960,
+          BACKING                 = 'EXPOSED',
+          MATL_ID(1,1:1)          = 'InertMockUpMaterial',
+          MATL_MASS_FRACTION(1,1) = 1.0 /
+    &SURF ID                      = 'Flux Patch H',
+          EXTERNAL_FLUX           = 64.10004,
+          BACKING                 = 'EXPOSED',
+          MATL_ID(1,1:1)          = 'InertMockUpMaterial',
+          MATL_MASS_FRACTION(1,1) = 1.0 /
+    &SURF ID                      = 'Flux Patch I',
+          EXTERNAL_FLUX           = 61.24745,
+          BACKING                 = 'EXPOSED',
+          MATL_ID(1,1:1)          = 'InertMockUpMaterial',
+          MATL_MASS_FRACTION(1,1) = 1.0 /
+
+
+#matl_definitions#
+
+&MATL ID = 'InertMockUpMaterial',
+      DENSITY       = 0.0,
+      EMISSIVITY    = 0.9,
+      CONDUCTIVITY  = 0.0,
+      SPECIFIC_HEAT = 0.0 /
+
+
+***** Geometry *******************
+
+*** Specimen ***
+
+    &VENT ID      = 'Sample Patch A',
+          SURF_ID = 'Flux Patch A',
+          XB =-0.05000,-0.01667,-0.05000,-0.01667, 0.00000, 0.00000 /
+    &VENT ID      = 'Sample Patch B',
+          SURF_ID = 'Flux Patch B',
+          XB =-0.05000,-0.01667,-0.01667, 0.01667, 0.00000, 0.00000 /
+    &VENT ID      = 'Sample Patch C',
+          SURF_ID = 'Flux Patch C',
+          XB =-0.05000,-0.01667, 0.01667, 0.05000, 0.00000, 0.00000 /
+    &VENT ID      = 'Sample Patch D',
+          SURF_ID = 'Flux Patch D',
+          XB =-0.01667, 0.01667,-0.05000,-0.01667, 0.00000, 0.00000 /
+    &VENT ID      = 'Sample Patch E',
+          SURF_ID = 'Flux Patch E',
+          XB =-0.01667, 0.01667,-0.01667, 0.01667, 0.00000, 0.00000 /
+    &VENT ID      = 'Sample Patch F',
+          SURF_ID = 'Flux Patch F',
+          XB =-0.01667, 0.01667, 0.01667, 0.05000, 0.00000, 0.00000 /
+    &VENT ID      = 'Sample Patch G',
+          SURF_ID = 'Flux Patch G',
+          XB = 0.01667, 0.05000,-0.05000,-0.01667, 0.00000, 0.00000 /
+    &VENT ID      = 'Sample Patch H',
+          SURF_ID = 'Flux Patch H',
+          XB = 0.01667, 0.05000,-0.01667, 0.01667, 0.00000, 0.00000 /
+    &VENT ID      = 'Sample Patch I',
+          SURF_ID = 'Flux Patch I',
+          XB = 0.01667, 0.05000, 0.01667, 0.05000, 0.00000, 0.00000 /
+
+
+&OBST SURF_ID = 'INERT',
+      XB      = -0.05,0.05,-0.05,0.05,-0.026,0.0 / SampleHolder
+
+
+
+***** Analysis *******************
+
+&DEVC ID       = 'HeatFluxGauge',
+      XYZ      = 0,0,0,
+      IOR      = 3,
+      QUANTITY = 'GAUGE HEAT FLUX' /
+
+
+
+&TAIL /
