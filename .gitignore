@@ -43,8 +43,21 @@ DataProcessing/*/
 # ------------------------
 # Experiments
 # ------------------------
-# Ignore all subdirectories inside Experiments/
-Experiments/*/
+# Ignore everything under Experiments
+Experiments/**
+
+# Allow the base folder
+!Experiments/
+
+# Allow specific folder(s)
+!Experiments/BESKID_ExperimentalData/
+
+# Keep only the README in those folder(s)
+!Experiments/BESKID_ExperimentalData/README.md
+
+# Ignore everything else inside the folder(s)
+Experiments/BESKID_ExperimentalData/*
+!Experiments/BESKID_ExperimentalData/README.md
 
 
 # ------------------------
