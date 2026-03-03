@@ -6,6 +6,7 @@ Thumbs.db
 *.swp
 *.swo
 
+
 # ------------------------
 # Python
 # ------------------------
@@ -17,6 +18,7 @@ __pycache__/
 build/
 dist/
 
+
 # ------------------------
 # Virtual environments
 # ------------------------
@@ -24,20 +26,39 @@ dist/
 venv/
 env/
 
+
 # ------------------------
 # Jupyter
 # ------------------------
-.ipynb_checkpoints/
+**/.ipynb_checkpoints/
 
 
 # ------------------------
-# Data
+# Data Processing
 # ------------------------
 # Ignore all subdirectories inside DataProcessing/
 DataProcessing/*/
 
-data/*
-!data/.gitkeep
+
+# ------------------------
+# Experiments
+# ------------------------
+# Ignore everything under Experiments
+Experiments/**
+
+# Allow the base folder
+!Experiments/
+
+# Allow specific folder(s)
+!Experiments/BESKID_ExperimentalData/
+
+# Keep only the README in those folder(s)
+!Experiments/BESKID_ExperimentalData/README.md
+
+# Ignore everything else inside the folder(s)
+Experiments/BESKID_ExperimentalData/*
+!Experiments/BESKID_ExperimentalData/README.md
+
 
 # ------------------------
 # Logs / misc

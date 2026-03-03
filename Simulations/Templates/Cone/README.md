@@ -14,7 +14,7 @@ The heat flux gauge is now a geometrical model. The surfaces are maintained at r
 
 ### Heater Calibration
 
-The spiral of the heater is approximated in this geometrical model. The surface temperatures are taken from Babrauskas' report for the desired nominal heat flux conditions. To reach the desired flux condition at the het flux gauge, the emissivity of the heater surface is to be adjusted.
+The spiral of the heater is approximated in this geometrical model. The surface temperatures are taken from Babrauskas' report for the desired nominal heat flux conditions. To reach the desired flux condition at the heat flux gauge, the emissivity of the heater surface is to be adjusted.
 
 At first, the heat flux gauge models are activated in the FDS input. The emissivity of the heater is adjusted until the time-average over about 20 seconds is close to the desired nominal flux. The gauge is then removed and the inert sample target introduced. The simulation is repeated and the flux map over the sample surface recorded.
 
