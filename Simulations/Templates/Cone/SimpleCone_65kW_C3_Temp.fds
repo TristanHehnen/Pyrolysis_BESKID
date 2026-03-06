@@ -42,51 +42,120 @@
 
 ***** Surfaces and Materials ********************
 
-    &SURF ID                      = 'Flux Patch A',
-          EXTERNAL_FLUX           = 61.25646,
-          BACKING                 = 'EXPOSED',
-          MATL_ID(1,1:1)          = 'InertMockUpMaterial',
-          MATL_MASS_FRACTION(1,1) = 1.0 /
-    &SURF ID                      = 'Flux Patch B',
-          EXTERNAL_FLUX           = 64.10700,
-          BACKING                 = 'EXPOSED',
-          MATL_ID(1,1:1)          = 'InertMockUpMaterial',
-          MATL_MASS_FRACTION(1,1) = 1.0 /
-    &SURF ID                      = 'Flux Patch C',
-          EXTERNAL_FLUX           = 61.25190,
-          BACKING                 = 'EXPOSED',
-          MATL_ID(1,1:1)          = 'InertMockUpMaterial',
-          MATL_MASS_FRACTION(1,1) = 1.0 /
-    &SURF ID                      = 'Flux Patch D',
-          EXTERNAL_FLUX           = 64.10293,
-          BACKING                 = 'EXPOSED',
-          MATL_ID(1,1:1)          = 'InertMockUpMaterial',
-          MATL_MASS_FRACTION(1,1) = 1.0 /
-    &SURF ID                      = 'Flux Patch E',
-          EXTERNAL_FLUX           = 64.85566,
-          BACKING                 = 'EXPOSED',
-          MATL_ID(1,1:1)          = 'InertMockUpMaterial',
-          MATL_MASS_FRACTION(1,1) = 1.0 /
-    &SURF ID                      = 'Flux Patch F',
-          EXTERNAL_FLUX           = 64.10133,
-          BACKING                 = 'EXPOSED',
-          MATL_ID(1,1:1)          = 'InertMockUpMaterial',
-          MATL_MASS_FRACTION(1,1) = 1.0 /
-    &SURF ID                      = 'Flux Patch G',
-          EXTERNAL_FLUX           = 61.24960,
-          BACKING                 = 'EXPOSED',
-          MATL_ID(1,1:1)          = 'InertMockUpMaterial',
-          MATL_MASS_FRACTION(1,1) = 1.0 /
-    &SURF ID                      = 'Flux Patch H',
-          EXTERNAL_FLUX           = 64.10004,
-          BACKING                 = 'EXPOSED',
-          MATL_ID(1,1:1)          = 'InertMockUpMaterial',
-          MATL_MASS_FRACTION(1,1) = 1.0 /
-    &SURF ID                      = 'Flux Patch I',
-          EXTERNAL_FLUX           = 61.24745,
-          BACKING                 = 'EXPOSED',
-          MATL_ID(1,1:1)          = 'InertMockUpMaterial',
-          MATL_MASS_FRACTION(1,1) = 1.0 /
+&SURF ID                      = 'Flux Patch A',
+      COLOR                   = 'BLACK',
+      CELL_SIZE_FACTOR(1)     = 0.5,
+      STRETCH_FACTOR(1)       = 1.0,
+      EXTERNAL_FLUX           = 61.25646,
+      BACKING                 = 'EXPOSED',
+      MATL_ID(1,1:1)          = 'InertMockUpMaterial',
+      MATL_MASS_FRACTION(1,1) = 1.0,
+      MATL_ID(2,1:1)          = 'PROMATECT-LS',
+      MATL_MASS_FRACTION(2,1) = 1.0 /
+
+&SURF ID                      = 'Flux Patch B',
+      COLOR                   = 'BLACK',
+      CELL_SIZE_FACTOR(1)     = 0.5,
+      STRETCH_FACTOR(1)       = 1.0,
+      EXTERNAL_FLUX           = 64.10700,
+      BACKING                 = 'EXPOSED',
+      MATL_ID(1,1:1)          = 'InertMockUpMaterial',
+      MATL_MASS_FRACTION(1,1) = 1.0,
+      MATL_ID(2,1:1)          = 'PROMATECT-LS',
+      MATL_MASS_FRACTION(2,1) = 1.0 /
+
+&SURF ID                      = 'Flux Patch C',
+      COLOR                   = 'BLACK',
+      CELL_SIZE_FACTOR(1)     = 0.5,
+      STRETCH_FACTOR(1)       = 1.0,
+      EXTERNAL_FLUX           = 61.25190,
+      BACKING                 = 'EXPOSED',
+      MATL_ID(1,1:1)          = 'InertMockUpMaterial',
+      MATL_MASS_FRACTION(1,1) = 1.0,
+      MATL_ID(2,1:1)          = 'PROMATECT-LS',
+      MATL_MASS_FRACTION(2,1) = 1.0 /
+
+&SURF ID                      = 'Flux Patch D',
+      COLOR                   = 'BLACK',
+      CELL_SIZE_FACTOR(1)     = 0.5,
+      STRETCH_FACTOR(1)       = 1.0,
+      EXTERNAL_FLUX           = 64.10293,
+      BACKING                 = 'EXPOSED',
+      MATL_ID(1,1:1)          = 'InertMockUpMaterial',
+      MATL_MASS_FRACTION(1,1) = 1.0,
+      MATL_ID(2,1:1)          = 'PROMATECT-LS',
+      MATL_MASS_FRACTION(2,1) = 1.0 /
+
+&SURF ID                      = 'Flux Patch E',
+      COLOR                   = 'BLACK',
+      CELL_SIZE_FACTOR(1)     = 0.5,
+      STRETCH_FACTOR(1)       = 1.0,
+      EXTERNAL_FLUX           = 64.85566,
+      BACKING                 = 'EXPOSED',
+      MATL_ID(1,1:1)          = 'InertMockUpMaterial',
+      MATL_MASS_FRACTION(1,1) = 1.0,
+      MATL_ID(2,1:1)          = 'PROMATECT-LS',
+      MATL_MASS_FRACTION(2,1) = 1.0 /
+
+&SURF ID                      = 'Flux Patch F',
+      COLOR                   = 'BLACK',
+      CELL_SIZE_FACTOR(1)     = 0.5,
+      STRETCH_FACTOR(1)       = 1.0,
+      EXTERNAL_FLUX           = 64.10133,
+      BACKING                 = 'EXPOSED',
+      MATL_ID(1,1:1)          = 'InertMockUpMaterial',
+      MATL_MASS_FRACTION(1,1) = 1.0,
+      MATL_ID(2,1:1)          = 'PROMATECT-LS',
+      MATL_MASS_FRACTION(2,1) = 1.0 /
+
+&SURF ID                      = 'Flux Patch G',
+      COLOR                   = 'BLACK',
+      CELL_SIZE_FACTOR(1)     = 0.5,
+      STRETCH_FACTOR(1)       = 1.0,
+      EXTERNAL_FLUX           = 61.24960,
+      BACKING                 = 'EXPOSED',
+      MATL_ID(1,1:1)          = 'InertMockUpMaterial',
+      MATL_MASS_FRACTION(1,1) = 1.0,
+      MATL_ID(2,1:1)          = 'PROMATECT-LS',
+      MATL_MASS_FRACTION(2,1) = 1.0 /
+
+&SURF ID                      = 'Flux Patch H',
+      COLOR                   = 'BLACK',
+      CELL_SIZE_FACTOR(1)     = 0.5,
+      STRETCH_FACTOR(1)       = 1.0,
+      EXTERNAL_FLUX           = 64.10004,
+      BACKING                 = 'EXPOSED',
+      MATL_ID(1,1:1)          = 'InertMockUpMaterial',
+      MATL_MASS_FRACTION(1,1) = 1.0,
+      MATL_ID(2,1:1)          = 'PROMATECT-LS',
+      MATL_MASS_FRACTION(2,1) = 1.0 /
+
+&SURF ID                      = 'Flux Patch I',
+      COLOR                   = 'BLACK',
+      CELL_SIZE_FACTOR(1)     = 0.5,
+      STRETCH_FACTOR(1)       = 1.0,
+      EXTERNAL_FLUX           = 61.24745,
+      BACKING                 = 'EXPOSED',
+      MATL_ID(1,1:1)          = 'InertMockUpMaterial',
+      MATL_MASS_FRACTION(1,1) = 1.0,
+      MATL_ID(2,1:1)          = 'PROMATECT-LS',
+      MATL_MASS_FRACTION(2,1) = 1.0 /
+
+
+***** Materials ********************
+
+# ---------------------------------------
+# PROMATECT-LS Calcium silicate board 30 mm
+# spec. heat: https://media.promat.com/pd36270/original/-1803860113/promatect-l_tds_en.pdf
+# Rest: https://media.promat.com/doc_369086_de/original/722333084/0032405-td-promatect-ls.pdf?brand=promatconstruction&market=de
+# ---------------------------------------
+
+&MATL ID            = 'PROMATECT-LS',
+DENSITY       = 520.0,
+EMISSIVITY    = 0.9,
+CONDUCTIVITY  = 0.087,
+SPECIFIC_HEAT = 0.95 /
+
 
 
 #matl_definitions#
