@@ -151,10 +151,10 @@
 # ---------------------------------------
 
 &MATL ID            = 'PROMATECT-LS',
-DENSITY       = 520.0,
-EMISSIVITY    = 0.9,
-CONDUCTIVITY  = 0.087,
-SPECIFIC_HEAT = 0.95 /
+      DENSITY       = 520.0,
+      EMISSIVITY    = 0.9,
+      CONDUCTIVITY  = 0.087,
+      SPECIFIC_HEAT = 0.95 /
 
 
 
@@ -171,33 +171,33 @@ SPECIFIC_HEAT = 0.95 /
 
 *** Specimen ***
 
-    &VENT ID      = 'Sample Patch A',
-          SURF_ID = 'Flux Patch A',
-          XB =-0.05000,-0.01667,-0.05000,-0.01667, 0.00000, 0.00000 /
-    &VENT ID      = 'Sample Patch B',
-          SURF_ID = 'Flux Patch B',
-          XB =-0.05000,-0.01667,-0.01667, 0.01667, 0.00000, 0.00000 /
-    &VENT ID      = 'Sample Patch C',
-          SURF_ID = 'Flux Patch C',
-          XB =-0.05000,-0.01667, 0.01667, 0.05000, 0.00000, 0.00000 /
-    &VENT ID      = 'Sample Patch D',
-          SURF_ID = 'Flux Patch D',
-          XB =-0.01667, 0.01667,-0.05000,-0.01667, 0.00000, 0.00000 /
-    &VENT ID      = 'Sample Patch E',
-          SURF_ID = 'Flux Patch E',
-          XB =-0.01667, 0.01667,-0.01667, 0.01667, 0.00000, 0.00000 /
-    &VENT ID      = 'Sample Patch F',
-          SURF_ID = 'Flux Patch F',
-          XB =-0.01667, 0.01667, 0.01667, 0.05000, 0.00000, 0.00000 /
-    &VENT ID      = 'Sample Patch G',
-          SURF_ID = 'Flux Patch G',
-          XB = 0.01667, 0.05000,-0.05000,-0.01667, 0.00000, 0.00000 /
-    &VENT ID      = 'Sample Patch H',
-          SURF_ID = 'Flux Patch H',
-          XB = 0.01667, 0.05000,-0.01667, 0.01667, 0.00000, 0.00000 /
-    &VENT ID      = 'Sample Patch I',
-          SURF_ID = 'Flux Patch I',
-          XB = 0.01667, 0.05000, 0.01667, 0.05000, 0.00000, 0.00000 /
+&VENT ID      = 'Sample Patch A',
+      SURF_ID = 'Flux Patch A',
+      XB =-0.05000,-0.01667,-0.05000,-0.01667, 0.00000, 0.00000 /
+&VENT ID      = 'Sample Patch B',
+      SURF_ID = 'Flux Patch B',
+      XB =-0.05000,-0.01667,-0.01667, 0.01667, 0.00000, 0.00000 /
+&VENT ID      = 'Sample Patch C',
+      SURF_ID = 'Flux Patch C',
+      XB =-0.05000,-0.01667, 0.01667, 0.05000, 0.00000, 0.00000 /
+&VENT ID      = 'Sample Patch D',
+      SURF_ID = 'Flux Patch D',
+      XB =-0.01667, 0.01667,-0.05000,-0.01667, 0.00000, 0.00000 /
+&VENT ID      = 'Sample Patch E',
+      SURF_ID = 'Flux Patch E',
+      XB =-0.01667, 0.01667,-0.01667, 0.01667, 0.00000, 0.00000 /
+&VENT ID      = 'Sample Patch F',
+      SURF_ID = 'Flux Patch F',
+      XB =-0.01667, 0.01667, 0.01667, 0.05000, 0.00000, 0.00000 /
+&VENT ID      = 'Sample Patch G',
+      SURF_ID = 'Flux Patch G',
+      XB = 0.01667, 0.05000,-0.05000,-0.01667, 0.00000, 0.00000 /
+&VENT ID      = 'Sample Patch H',
+      SURF_ID = 'Flux Patch H',
+      XB = 0.01667, 0.05000,-0.01667, 0.01667, 0.00000, 0.00000 /
+&VENT ID      = 'Sample Patch I',
+      SURF_ID = 'Flux Patch I',
+      XB = 0.01667, 0.05000, 0.01667, 0.05000, 0.00000, 0.00000 /
 
 
 &OBST SURF_ID = 'INERT',
