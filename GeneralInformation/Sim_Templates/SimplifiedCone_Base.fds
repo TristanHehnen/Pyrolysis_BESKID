@@ -1,0 +1,93 @@
+&HEAD CHID='#CHID_Cone#',
+    TITLE='Simplified cone calorimeter simulation setup'  /
+
+3.33 cm cells
+&MESH ID  = 'Mesh',
+      IJK = 9,9,20
+      XB  = -0.15,0.15,-0.15,0.15,-0.066667,0.600000 /
+
+
+&TIME T_END=300, WALL_INCREMENT=1, DT=1.0 /
+&MISC SIMULATION_MODE = 'LES',
+      TMPA            = 20.0 /
+
+&DUMP NFRAMES=301 /
+
+
+
+##################
+#### Reaction ####
+##################
+
+
+***** REAC Parameters ******************
+
+&SPEC ID='ETHYLENE' /
+
+&REAC FUEL='ETHYLENE'
+      SOOT_YIELD = 0.022 /
+
+
+
+ ***** Open Vents ********************
+
+&VENT MB='XMIN', SURF_ID='OPEN' /
+&VENT MB='XMAX', SURF_ID='OPEN' /
+&VENT MB='YMIN', SURF_ID='OPEN' /
+&VENT MB='YMAX', SURF_ID='OPEN' /
+&VENT MB='ZMIN', SURF_ID='OPEN' /
+&VENT MB='ZMAX', SURF_ID='OPEN' /
+
+
+
+***** Surfaces and Materials ********************
+
+#surf_definitions#
+
+
+***** Materials ********************
+
+# ---------------------------------------
+# PROMATECT-LS Calcium silicate board 30 mm
+# spec. heat: https://media.promat.com/pd36270/original/-1803860113/promatect-l_tds_en.pdf
+# Rest: https://media.promat.com/doc_369086_de/original/722333084/0032405-td-promatect-ls.pdf?brand=promatconstruction&market=de
+# ---------------------------------------
+
+&MATL ID            = 'PROMATECT-LS',
+      DENSITY       = 520.0,
+      EMISSIVITY    = 0.9,
+      CONDUCTIVITY  = 0.087,
+      SPECIFIC_HEAT = 0.95 /
+
+
+#matl_definitions#
+
+&MATL ID = 'InertMockUpMaterial',
+      DENSITY       = 0.0,
+      EMISSIVITY    = 0.9,
+      CONDUCTIVITY  = 0.0,
+      SPECIFIC_HEAT = 0.0 /
+
+
+***** Geometry *******************
+
+*** Specimen ***
+
+#vent_definitions#
+
+
+&OBST SURF_ID = 'INERT',
+      XB      = -0.05,0.05,-0.05,0.05,-0.026,0.0 / SampleHolder
+
+
+
+***** Analysis *******************
+
+&DEVC ID       = 'HeatFluxGauge',
+      XYZ      = 0,0,0,
+      IOR      = 3,
+      QUANTITY = 'GAUGE HEAT FLUX' /
+
+
+
+&TAIL /

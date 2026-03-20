@@ -1,10 +1,11 @@
 &HEAD CHID='#CHID_Cone#',
     TITLE='Simplified cone calorimeter simulation setup'  /
 
-3.33 cm cells
-&MESH ID  = 'Mesh',
-      IJK = 9,9,20
-      XB  = -0.15,0.15,-0.15,0.15,-0.066667,0.600000 /
+ 3.33333 cm cells
+&MESH ID  = 'Mesh_C3',
+      IJK = 9,9,20,
+      XB  = -0.15,0.15,-0.15,0.15, 0.06667,0.60 /
+
 
 
 &TIME T_END=300, WALL_INCREMENT=1, DT=1.0 /
@@ -42,51 +43,102 @@
 
 ***** Surfaces and Materials ********************
 
-    &SURF ID                      = 'Flux Patch A',
-          EXTERNAL_FLUX           = 70.69906,
-          BACKING                 = 'EXPOSED',
-          MATL_ID(1,1:1)          = 'InertMockUpMaterial',
-          MATL_MASS_FRACTION(1,1) = 1.0 /
-    &SURF ID                      = 'Flux Patch B',
-          EXTERNAL_FLUX           = 73.98118,
-          BACKING                 = 'EXPOSED',
-          MATL_ID(1,1:1)          = 'InertMockUpMaterial',
-          MATL_MASS_FRACTION(1,1) = 1.0 /
-    &SURF ID                      = 'Flux Patch C',
-          EXTERNAL_FLUX           = 70.69349,
-          BACKING                 = 'EXPOSED',
-          MATL_ID(1,1:1)          = 'InertMockUpMaterial',
-          MATL_MASS_FRACTION(1,1) = 1.0 /
-    &SURF ID                      = 'Flux Patch D',
-          EXTERNAL_FLUX           = 73.97647,
-          BACKING                 = 'EXPOSED',
-          MATL_ID(1,1:1)          = 'InertMockUpMaterial',
-          MATL_MASS_FRACTION(1,1) = 1.0 /
-    &SURF ID                      = 'Flux Patch E',
-          EXTERNAL_FLUX           = 74.83706,
-          BACKING                 = 'EXPOSED',
-          MATL_ID(1,1:1)          = 'InertMockUpMaterial',
-          MATL_MASS_FRACTION(1,1) = 1.0 /
-    &SURF ID                      = 'Flux Patch F',
-          EXTERNAL_FLUX           = 73.97428,
-          BACKING                 = 'EXPOSED',
-          MATL_ID(1,1:1)          = 'InertMockUpMaterial',
-          MATL_MASS_FRACTION(1,1) = 1.0 /
-    &SURF ID                      = 'Flux Patch G',
-          EXTERNAL_FLUX           = 70.69089,
-          BACKING                 = 'EXPOSED',
-          MATL_ID(1,1:1)          = 'InertMockUpMaterial',
-          MATL_MASS_FRACTION(1,1) = 1.0 /
-    &SURF ID                      = 'Flux Patch H',
-          EXTERNAL_FLUX           = 73.97301,
-          BACKING                 = 'EXPOSED',
-          MATL_ID(1,1:1)          = 'InertMockUpMaterial',
-          MATL_MASS_FRACTION(1,1) = 1.0 /
-    &SURF ID                      = 'Flux Patch I',
-          EXTERNAL_FLUX           = 70.68836,
-          BACKING                 = 'EXPOSED',
-          MATL_ID(1,1:1)          = 'InertMockUpMaterial',
-          MATL_MASS_FRACTION(1,1) = 1.0 /
+&SURF ID                      = 'Flux Patch A',
+      EXTERNAL_FLUX           = 70.69906,
+      BACKING                 = 'EXPOSED',
+      THICKNESS               = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'InertMockUpMaterial',
+      MATL_MASS_FRACTION(1,1) = 1.0,
+      MATL_ID(2,1:1)          = 'PROMATECT-LS',
+      MATL_MASS_FRACTION(2,1) = 1.0 /
+
+&SURF ID                      = 'Flux Patch B',
+      EXTERNAL_FLUX           = 73.98118,
+      BACKING                 = 'EXPOSED',
+      THICKNESS               = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'InertMockUpMaterial',
+      MATL_MASS_FRACTION(1,1) = 1.0,
+      MATL_ID(2,1:1)          = 'PROMATECT-LS',
+      MATL_MASS_FRACTION(2,1) = 1.0 /
+
+&SURF ID                      = 'Flux Patch C',
+      EXTERNAL_FLUX           = 70.69349,
+      BACKING                 = 'EXPOSED',
+      THICKNESS               = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'InertMockUpMaterial',
+      MATL_MASS_FRACTION(1,1) = 1.0,
+      MATL_ID(2,1:1)          = 'PROMATECT-LS',
+      MATL_MASS_FRACTION(2,1) = 1.0 /
+
+&SURF ID                      = 'Flux Patch D',
+      EXTERNAL_FLUX           = 73.97647,
+      BACKING                 = 'EXPOSED',
+      THICKNESS               = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'InertMockUpMaterial',
+      MATL_MASS_FRACTION(1,1) = 1.0,
+      MATL_ID(2,1:1)          = 'PROMATECT-LS',
+      MATL_MASS_FRACTION(2,1) = 1.0 /
+
+&SURF ID                      = 'Flux Patch E',
+      EXTERNAL_FLUX           = 74.83706,
+      BACKING                 = 'EXPOSED',
+      THICKNESS               = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'InertMockUpMaterial',
+      MATL_MASS_FRACTION(1,1) = 1.0,
+      MATL_ID(2,1:1)          = 'PROMATECT-LS',
+      MATL_MASS_FRACTION(2,1) = 1.0 /
+
+&SURF ID                      = 'Flux Patch F',
+      EXTERNAL_FLUX           = 73.97428,
+      BACKING                 = 'EXPOSED',
+      THICKNESS               = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'InertMockUpMaterial',
+      MATL_MASS_FRACTION(1,1) = 1.0,
+      MATL_ID(2,1:1)          = 'PROMATECT-LS',
+      MATL_MASS_FRACTION(2,1) = 1.0 /
+
+&SURF ID                      = 'Flux Patch G',
+      EXTERNAL_FLUX           = 70.69089,
+      BACKING                 = 'EXPOSED',
+      THICKNESS               = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'InertMockUpMaterial',
+      MATL_MASS_FRACTION(1,1) = 1.0,
+      MATL_ID(2,1:1)          = 'PROMATECT-LS',
+      MATL_MASS_FRACTION(2,1) = 1.0 /
+
+&SURF ID                      = 'Flux Patch H',
+      EXTERNAL_FLUX           = 73.97301,
+      BACKING                 = 'EXPOSED',
+      THICKNESS               = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'InertMockUpMaterial',
+      MATL_MASS_FRACTION(1,1) = 1.0,
+      MATL_ID(2,1:1)          = 'PROMATECT-LS',
+      MATL_MASS_FRACTION(2,1) = 1.0 /
+
+&SURF ID                      = 'Flux Patch I',
+      EXTERNAL_FLUX           = 70.68836,
+      BACKING                 = 'EXPOSED',
+      THICKNESS               = 0.006, 0.03,
+      MATL_ID(1,1:1)          = 'InertMockUpMaterial',
+      MATL_MASS_FRACTION(1,1) = 1.0,
+      MATL_ID(2,1:1)          = 'PROMATECT-LS',
+      MATL_MASS_FRACTION(2,1) = 1.0 /
+
+
+
+***** Materials ********************
+
+# ---------------------------------------
+# PROMATECT-LS Calcium silicate board 30 mm
+# spec. heat: https://media.promat.com/pd36270/original/-1803860113/promatect-l_tds_en.pdf
+# Rest: https://media.promat.com/doc_369086_de/original/722333084/0032405-td-promatect-ls.pdf?brand=promatconstruction&market=de
+# ---------------------------------------
+
+&MATL ID            = 'PROMATECT-LS',
+      DENSITY       = 520.0,
+      EMISSIVITY    = 0.9,
+      CONDUCTIVITY  = 0.087,
+      SPECIFIC_HEAT = 0.95 /
 
 
 #matl_definitions#
@@ -102,33 +154,42 @@
 
 *** Specimen ***
 
-    &VENT ID      = 'Sample Patch A',
-          SURF_ID = 'Flux Patch A',
-          XB =-0.05000,-0.01667,-0.05000,-0.01667, 0.00000, 0.00000 /
-    &VENT ID      = 'Sample Patch B',
-          SURF_ID = 'Flux Patch B',
-          XB =-0.05000,-0.01667,-0.01667, 0.01667, 0.00000, 0.00000 /
-    &VENT ID      = 'Sample Patch C',
-          SURF_ID = 'Flux Patch C',
-          XB =-0.05000,-0.01667, 0.01667, 0.05000, 0.00000, 0.00000 /
-    &VENT ID      = 'Sample Patch D',
-          SURF_ID = 'Flux Patch D',
-          XB =-0.01667, 0.01667,-0.05000,-0.01667, 0.00000, 0.00000 /
-    &VENT ID      = 'Sample Patch E',
-          SURF_ID = 'Flux Patch E',
-          XB =-0.01667, 0.01667,-0.01667, 0.01667, 0.00000, 0.00000 /
-    &VENT ID      = 'Sample Patch F',
-          SURF_ID = 'Flux Patch F',
-          XB =-0.01667, 0.01667, 0.01667, 0.05000, 0.00000, 0.00000 /
-    &VENT ID      = 'Sample Patch G',
-          SURF_ID = 'Flux Patch G',
-          XB = 0.01667, 0.05000,-0.05000,-0.01667, 0.00000, 0.00000 /
-    &VENT ID      = 'Sample Patch H',
-          SURF_ID = 'Flux Patch H',
-          XB = 0.01667, 0.05000,-0.01667, 0.01667, 0.00000, 0.00000 /
-    &VENT ID      = 'Sample Patch I',
-          SURF_ID = 'Flux Patch I',
-          XB = 0.01667, 0.05000, 0.01667, 0.05000, 0.00000, 0.00000 /
+&VENT ID      = 'Sample Patch A',
+      SURF_ID = 'Flux Patch A',
+      XB =-0.05000,-0.01667,-0.05000,-0.01667,0.0,0.0 /
+
+&VENT ID      = 'Sample Patch B',
+      SURF_ID = 'Flux Patch B',
+      XB =-0.05000,-0.01667,-0.01667, 0.01667,0.0,0.0 /
+
+&VENT ID      = 'Sample Patch C',
+      SURF_ID = 'Flux Patch C',
+      XB =-0.05000,-0.01667, 0.01667, 0.05000,0.0,0.0 /
+
+&VENT ID      = 'Sample Patch D',
+      SURF_ID = 'Flux Patch D',
+      XB =-0.01667, 0.01667,-0.05000,-0.01667,0.0,0.0 /
+
+&VENT ID      = 'Sample Patch E',
+      SURF_ID = 'Flux Patch E',
+      XB =-0.01667, 0.01667,-0.01667, 0.01667,0.0,0.0 /
+
+&VENT ID      = 'Sample Patch F',
+      SURF_ID = 'Flux Patch F',
+      XB =-0.01667, 0.01667, 0.01667, 0.05000,0.0,0.0 /
+
+&VENT ID      = 'Sample Patch G',
+      SURF_ID = 'Flux Patch G',
+      XB = 0.01667, 0.05000,-0.05000,-0.01667,0.0,0.0 /
+
+&VENT ID      = 'Sample Patch H',
+      SURF_ID = 'Flux Patch H',
+      XB = 0.01667, 0.05000,-0.01667, 0.01667,0.0,0.0 /
+
+&VENT ID      = 'Sample Patch I',
+      SURF_ID = 'Flux Patch I',
+      XB = 0.01667, 0.05000, 0.01667, 0.05000,0.0,0.0 /
+
 
 
 &OBST SURF_ID = 'INERT',
