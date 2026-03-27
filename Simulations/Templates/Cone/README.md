@@ -24,3 +24,9 @@ With the default number of radiation angels of the FDS radiation solver, artefac
 ## Calibrated Simplified Cone Calorimeter Setups
 
 Using the procedure outlined above, simulation setups with low fluid cell resolution have been created. They consist of fluid cells with an edge length of about 3.33 cm, such that 3 by 3 cells cover the surface of a cone calorimeter sample (C3). Five external heat fluxes are available: 25 kW/m², 50 kW/m², 65 kW/m² and 75 kW/m².
+
+
+## Sample Material
+
+As base case, the black cast PMMA material from UMD is used, as it is implemented in the FDS validation case `NIST_NRC_Parallel_Panels` (https://github.com/firemodels/fds/blob/59352d2f35f6b5b7f69b18466ea2a68d3124bf82/Validation/NIST_NRC_Parallel_Panels/FDS_Input_Files/PMMA_60_kW_1_cm.fds).
+Materials are to be defined in a dedicated text file and concatenated to the FDS input file. The UMD PMMA serves here as an example of the process.
