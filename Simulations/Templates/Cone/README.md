@@ -28,5 +28,5 @@ Using the procedure outlined above, simulation setups with low fluid cell resolu
 
 ## Sample Material
 
-As base case, the black cast PMMA material from UMD is used, as it is implemented in the FDS validation case `NIST_NRC_Parallel_Panels` (https://github.com/firemodels/fds/blob/59352d2f35f6b5b7f69b18466ea2a68d3124bf82/Validation/NIST_NRC_Parallel_Panels/FDS_Input_Files/PMMA_60_kW_1_cm.fds).
+As base case, the black cast PMMA material from UMD (https://doi.org/10.1016/j.firesaf.2020.103083) is used, as it is implemented in the FDS validation case `NIST_NRC_Parallel_Panels` (https://github.com/firemodels/fds/blob/59352d2f35f6b5b7f69b18466ea2a68d3124bf82/Validation/NIST_NRC_Parallel_Panels/FDS_Input_Files/PMMA_60_kW_1_cm.fds).
 Materials are to be defined in a dedicated text file and concatenated to the FDS input file. The UMD PMMA serves here as an example of the process.
