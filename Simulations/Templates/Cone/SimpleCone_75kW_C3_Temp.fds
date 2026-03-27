@@ -4,7 +4,7 @@
  3.33333 cm cells
 &MESH ID  = 'Mesh_C3',
       IJK = 9,9,20,
-      XB  = -0.15,0.15,-0.15,0.15, 0.06667,0.60 /
+      XB  = -0.15,0.15, -0.15,0.15, -0.06667,0.60 /
 
 
 
@@ -13,20 +13,6 @@
       TMPA            = 20.0 /
 
 &DUMP NFRAMES=301 /
-
-
-
-##################
-#### Reaction ####
-##################
-
-
-***** REAC Parameters ******************
-
-&SPEC ID='ETHYLENE' /
-
-&REAC FUEL='ETHYLENE'
-      SOOT_YIELD = 0.022 /
 
 
 
@@ -44,82 +30,91 @@
 ***** Surfaces and Materials ********************
 
 &SURF ID                      = 'Flux Patch A',
+      COLOR                   = 'IVORY BLACK',
       EXTERNAL_FLUX           = 70.69906,
       BACKING                 = 'EXPOSED',
       THICKNESS               = 0.006, 0.03,
-      MATL_ID(1,1:1)          = 'InertMockUpMaterial',
+      MATL_ID(1,1:1)          = 'SAMPLE',
       MATL_MASS_FRACTION(1,1) = 1.0,
       MATL_ID(2,1:1)          = 'PROMATECT-LS',
       MATL_MASS_FRACTION(2,1) = 1.0 /
 
 &SURF ID                      = 'Flux Patch B',
+      COLOR                   = 'IVORY BLACK',
       EXTERNAL_FLUX           = 73.98118,
       BACKING                 = 'EXPOSED',
       THICKNESS               = 0.006, 0.03,
-      MATL_ID(1,1:1)          = 'InertMockUpMaterial',
+      MATL_ID(1,1:1)          = 'SAMPLE',
       MATL_MASS_FRACTION(1,1) = 1.0,
       MATL_ID(2,1:1)          = 'PROMATECT-LS',
       MATL_MASS_FRACTION(2,1) = 1.0 /
 
 &SURF ID                      = 'Flux Patch C',
+      COLOR                   = 'IVORY BLACK',
       EXTERNAL_FLUX           = 70.69349,
       BACKING                 = 'EXPOSED',
       THICKNESS               = 0.006, 0.03,
-      MATL_ID(1,1:1)          = 'InertMockUpMaterial',
+      MATL_ID(1,1:1)          = 'SAMPLE',
       MATL_MASS_FRACTION(1,1) = 1.0,
       MATL_ID(2,1:1)          = 'PROMATECT-LS',
       MATL_MASS_FRACTION(2,1) = 1.0 /
 
 &SURF ID                      = 'Flux Patch D',
+      COLOR                   = 'IVORY BLACK',
       EXTERNAL_FLUX           = 73.97647,
       BACKING                 = 'EXPOSED',
       THICKNESS               = 0.006, 0.03,
-      MATL_ID(1,1:1)          = 'InertMockUpMaterial',
+      MATL_ID(1,1:1)          = 'SAMPLE',
       MATL_MASS_FRACTION(1,1) = 1.0,
       MATL_ID(2,1:1)          = 'PROMATECT-LS',
       MATL_MASS_FRACTION(2,1) = 1.0 /
 
 &SURF ID                      = 'Flux Patch E',
+      COLOR                   = 'IVORY BLACK',
       EXTERNAL_FLUX           = 74.83706,
       BACKING                 = 'EXPOSED',
       THICKNESS               = 0.006, 0.03,
-      MATL_ID(1,1:1)          = 'InertMockUpMaterial',
+      MATL_ID(1,1:1)          = 'SAMPLE',
       MATL_MASS_FRACTION(1,1) = 1.0,
       MATL_ID(2,1:1)          = 'PROMATECT-LS',
       MATL_MASS_FRACTION(2,1) = 1.0 /
 
 &SURF ID                      = 'Flux Patch F',
+      COLOR                   = 'IVORY BLACK',
       EXTERNAL_FLUX           = 73.97428,
       BACKING                 = 'EXPOSED',
       THICKNESS               = 0.006, 0.03,
-      MATL_ID(1,1:1)          = 'InertMockUpMaterial',
+      MATL_ID(1,1:1)          = 'SAMPLE',
       MATL_MASS_FRACTION(1,1) = 1.0,
       MATL_ID(2,1:1)          = 'PROMATECT-LS',
       MATL_MASS_FRACTION(2,1) = 1.0 /
 
 &SURF ID                      = 'Flux Patch G',
+      COLOR                   = 'IVORY BLACK',
       EXTERNAL_FLUX           = 70.69089,
       BACKING                 = 'EXPOSED',
       THICKNESS               = 0.006, 0.03,
-      MATL_ID(1,1:1)          = 'InertMockUpMaterial',
+      MATL_ID(1,1:1)          = 'SAMPLE',
       MATL_MASS_FRACTION(1,1) = 1.0,
       MATL_ID(2,1:1)          = 'PROMATECT-LS',
       MATL_MASS_FRACTION(2,1) = 1.0 /
 
 &SURF ID                      = 'Flux Patch H',
+      COLOR                   = 'IVORY BLACK',
       EXTERNAL_FLUX           = 73.97301,
       BACKING                 = 'EXPOSED',
       THICKNESS               = 0.006, 0.03,
-      MATL_ID(1,1:1)          = 'InertMockUpMaterial',
+      MATL_ID(1,1:1)          = 'SAMPLE',
       MATL_MASS_FRACTION(1,1) = 1.0,
       MATL_ID(2,1:1)          = 'PROMATECT-LS',
       MATL_MASS_FRACTION(2,1) = 1.0 /
 
 &SURF ID                      = 'Flux Patch I',
+      COLOR                   = 'IVORY BLACK',
       EXTERNAL_FLUX           = 70.68836,
       BACKING                 = 'EXPOSED',
       THICKNESS               = 0.006, 0.03,
-      MATL_ID(1,1:1)          = 'InertMockUpMaterial',
+      MATL_ID(1,1:1)          = 'SAMPLE',
       MATL_MASS_FRACTION(1,1) = 1.0,
       MATL_ID(2,1:1)          = 'PROMATECT-LS',
       MATL_MASS_FRACTION(2,1) = 1.0 /
@@ -141,13 +136,12 @@
       SPECIFIC_HEAT = 0.95 /
 
 
-#matl_definitions#
 
-&MATL ID = 'InertMockUpMaterial',
-      DENSITY       = 0.0,
-      EMISSIVITY    = 0.9,
-      CONDUCTIVITY  = 0.0,
-      SPECIFIC_HEAT = 0.0 /
+***** Sample ********************
+
+# Import the sample material (MATL, SPEC, REAC)
+&CATF OTHER_FILES='../SampleMaterial/MaCFP_PMMA_UMD.txt' /
+
 
 
 ***** Geometry *******************

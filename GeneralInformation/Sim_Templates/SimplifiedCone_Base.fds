@@ -15,20 +15,6 @@
 
 
 
-##################
-#### Reaction ####
-##################
-
-
-***** REAC Parameters ******************
-
-&SPEC ID='ETHYLENE' /
-
-&REAC FUEL='ETHYLENE'
-      SOOT_YIELD = 0.022 /
-
-
-
  ***** Open Vents ********************
 
 &VENT MB='XMIN', SURF_ID='OPEN' /
@@ -60,13 +46,12 @@
       SPECIFIC_HEAT = 0.95 /
 
 
-#matl_definitions#
 
-&MATL ID = 'InertMockUpMaterial',
-      DENSITY       = 0.0,
-      EMISSIVITY    = 0.9,
-      CONDUCTIVITY  = 0.0,
-      SPECIFIC_HEAT = 0.0 /
+***** Sample ********************
+
+# Import the sample material (MATL, SPEC, REAC)
+&CATF OTHER_FILES='../SampleMaterial/MaCFP_PMMA_UMD.txt' /
+
 
 
 ***** Geometry *******************
